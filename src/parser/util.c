@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 19:02:46 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/12 10:03:11 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/16 11:37:38 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ int		is_word(char c, int quote)
 	return (
 		!is_space(c, quote) &&
 		!is_operator(c, quote));
+}
+
+void	delete_token(void *content, size_t content_size)
+{
+	t_token *token;
+
+	(void)content_size;
+	token = (t_token*)content;
+	free(token->data);
+	free(content);
 }

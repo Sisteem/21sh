@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:49:50 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/13 20:00:01 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/16 11:38:09 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ typedef struct	s_command
 t_vector		*parse_command(char *cmd);
 char			quote_type(char c);
 int				is_space(char c, int quote);
+void			delete_token(void *content, size_t content_size);
 
 #endif
