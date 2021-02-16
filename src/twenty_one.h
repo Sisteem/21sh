@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:51:09 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/13 14:47:08 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/15 08:41:39 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include <fcntl.h>
 
 # include "../libft/libft.h"
 # include "parser/parser.h"
@@ -36,6 +37,12 @@ typedef enum	e_error
 	EPATHISDIR,
 	EUNK
 }				t_error;
+
+typedef enum	e_bool
+{
+	FALSE,
+	TRUE
+}				t_bool;
 
 extern t_vector	*g_shell_env;
 
