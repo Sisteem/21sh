@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/14 10:12:49 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/18 14:38:21 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 t_vector	*g_shell_env;
 
-const char *g_tokens_keys[] = {
+const char	*g_tokens_keys[] = {
 	"NONE",
+	"NEWLINE",
 	"WORD",
-	"IO_NUMBER",
 	"SEMI",
 	"PIPELINE",
-	"DLESSDASH",
-	"DLESS",
-	"LESS",
-	"ANDDGREAT",
-	"ANDGREAT",
-	"DGREAT",
-	"GREATANDDASH",
-	"GREATAND",
+	"IO_NUMBER",
 	"GREAT",
+	"DGREAT",
+	"ANDGREAT",
+	"ANDDGREAT",
+	"LESS",
+	"DLESS",
+	"DLESSDASH",
+	"GREATAND",
+	"GREATANDDASH",
 };
 
-void	print_tokens(t_vector *tokens)
+void		print_tokens(t_vector *tokens)
 {
 	t_token	*t;
 	size_t	i;
@@ -66,18 +67,21 @@ char		*read_cmd(void)
 	return (cmd);
 }
 
-int		main(int ac, char *av[], char *envp[])
+int			main(int ac, char *av[], char *envp[])
 {
 	t_vector	*args;
-	char		*cmd;
+	t_command	*cmd;
+	char		*line;
 
 	g_shell_env = env_init(envp);
 	if (ac == 1)
-		cmd = read_cmd();
+		line = read_cmd();
 	else
-		cmd = av[ac - 1];
-	ft_printf(1, "cmd: %s\n", cmd);
-	args = parse_command(cmd);
+		line = av[ac - 1];
+	args = parse_command(line);
+	cmd = (t_command*)args->array[0]->content;
+	exec_simple_command(cmd->tokens);
+	ft_printf(1, "line: %s\n", line);
 	(void)args;
 	return (0);
 }
