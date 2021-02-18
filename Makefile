@@ -6,7 +6,7 @@
 #    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/02/18 12:26:34 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/02/18 19:13:20 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,17 @@ CFLAGS = -Wall -Wextra -Werror -g
 CC = gcc
 
 # objects																	   #
-21sh_INC = src/twenty_one.h src/parser/parser.h src/expansion/expansion.h src/typedefs.h src/errors/errors.h
+21sh_INC = src/twenty_one.h src/parser/parser.h src/expansion/expansion.h \
+	src/typedefs.h src/errors/errors.h src/redirections/redirections.h
 21sh = main.o \
 	parser/parser.o parser/tokenization.o parser/tokenization_helpers.o \
 	parser/construct_commands.o parser/syntax_analys.o parser/util.o \
 	expansion/expansion.o expansion/expand_word.o expansion/tilde_expansion.o \
 	expansion/env_var_expansion.o expansion/tokens_to_fileds.o \
-	execution/exec_simple_command.o execution/redirections.o \
+	execution/exec_simple_command.o \
 	errors/errors.o \
+	redirections/open_file.o redirections/perform_redirections.o \
+	redirections/redirect_input.o redirections/remove_redirections_tokens.o \
 	built_in/cd.o built_in/cd_utils.o built_in/env.o built_in/env_tools.o \
 	built_in/env_ops.o built_in/run_built_in.o built_in/echo.o built_in/exit.o
 

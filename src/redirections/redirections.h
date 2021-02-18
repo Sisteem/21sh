@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   internal.h                                         :+:      :+:    :+:   */
+/*   redirections.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/14 17:11:27 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 19:07:49 by ylagtab          ###   ########.fr       */
+/*   Created: 2021/02/18 18:52:40 by ylagtab           #+#    #+#             */
+/*   Updated: 2021/02/18 19:07:28 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERNAL_H
-# define INTERNAL_H
+#ifndef REDIRECTIONS_H
+# define REDIRECTIONS_H
 
-# include "twenty_one.h"
+void			perform_redirections(t_vector *tokens);
 
 #endif

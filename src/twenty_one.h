@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:51:09 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 12:18:08 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/18 19:13:39 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "errors/errors.h"
 # include "parser/parser.h"
 # include "expansion/expansion.h"
+# include "redirections/redirections.h"
 # include "execution/execution.h"
 # include "built_in/built_in.h"
 
