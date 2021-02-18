@@ -6,18 +6,12 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:27:21 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/12 11:03:39 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/18 12:15:10 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
-
-typedef struct	s_env_var
-{
-	char	*key;
-	char	*value;
-}				t_env_var;
 
 int				run_built_in(t_vector *mini_env, char **args, size_t args_len);
 void			cd(t_vector *mini_env, char **args, size_t args_len);

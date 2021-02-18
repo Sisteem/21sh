@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:51:09 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/15 08:41:39 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/18 12:18:08 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,14 @@
 # include <fcntl.h>
 
 # include "../libft/libft.h"
+# include "typedefs.h"
+# include "errors/errors.h"
 # include "parser/parser.h"
-# include "./expansion/expansion.h"
-# include "./built_in/built_in.h"
+# include "expansion/expansion.h"
+# include "execution/execution.h"
+# include "built_in/built_in.h"
 
 # define PATH_MAX 1024
-
-typedef enum	e_error
-{
-	EACCESS = 1,
-	ENOTFOUND,
-	ENOTDIR,
-	ENAMETOOLONG,
-	ENOHOME,
-	ENOOLPPWD,
-	EPATHISDIR,
-	EUNK
-}				t_error;
-
-typedef enum	e_bool
-{
-	FALSE,
-	TRUE
-}				t_bool;
 
 extern t_vector	*g_shell_env;
 
