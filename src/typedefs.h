@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:11:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 12:15:17 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/18 15:10:11 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum	e_token_type
 typedef enum	e_error
 {
 	EACCESS = 1,
+	ECMDNOTFOUND,
 	ENOTFOUND,
 	ENOTDIR,
 	ENAMETOOLONG,
