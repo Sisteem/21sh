@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 14:41:27 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/18 16:56:06 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int	open_file(t_redirect_input_info *redirect_input_info)
 	int	file_fd;
 	int	write_mode;
 
-	write_mode = redirect_input_info->append == TRUE ?
-		O_APPEND : O_WRONLY | O_CREAT;
+	write_mode = O_WRONLY | O_APPEND;
+	write_mode |= redirect_input_info->append == TRUE ? 0 : O_CREAT | O_TRUNC;
 	file_fd = open(redirect_input_info->file_pathname, write_mode, UMASK);
 	check_output_file_errors(redirect_input_info->file_pathname);
 	return (file_fd);
