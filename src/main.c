@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 14:38:21 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/18 16:46:11 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int			main(int ac, char *av[], char *envp[])
 	args = parse_command(line);
 	cmd = (t_command*)args->array[0]->content;
 	exec_simple_command(cmd->tokens);
-	ft_printf(1, "line: %s\n", line);
 	(void)args;
 	return (0);
 }
