@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 19:06:48 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 19:06:59 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/19 09:32:50 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	remove_redirections_tokens(t_vector *tokens)
 {
-	t_token	*tk;
-	size_t	i;
+	t_token_type	tk_type;
+	size_t			i;
 
 	i = 0;
 	while (i < tokens->length)
 	{
-		tk = (t_token*)tokens->array[i]->content;
-		if (tk->type > PIPELINE)
+		tk_type = ((t_token*)tokens->array[i]->content)->type;
+		if (tk_type > PIPELINE)
 		{
 			ft_vector_remove_at(tokens, i, delete_token);
-			if (tk->type != GREATANDDASH)
+			if (tk_type != IO_NUMBER && tk_type != GREATANDDASH)
 				ft_vector_remove_at(tokens, i, delete_token);
 		}
 		else
