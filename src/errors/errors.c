@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:01:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 15:12:42 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/19 11:51:24 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ const char	*g_error_message_string[] = {
 	"OLDPWD not set",
 	"is a directory",
 	"Redirection error",
+	"ambiguous redirect",
 	"An error has occured"
 };
 
