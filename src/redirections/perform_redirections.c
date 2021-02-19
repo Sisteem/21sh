@@ -6,13 +6,13 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/19 11:49:42 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/19 17:48:50 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-static void check_ambiguous_redirect(char *str)
+static void	check_ambiguous_redirect(char *str)
 {
 	if (str == NULL || *str == '\0')
 	{
@@ -42,6 +42,13 @@ void		perform_redirections(t_vector *tokens)
 			tmp_tk = (t_token*)tokens->array[i + 1]->content;
 			check_ambiguous_redirect(tmp_tk->data);
 			redirect_output(tmp_tk->data, io_number, tk->type == DGREAT);
+		}
+		else if (tk->type == ANDGREAT || tk->type == ANDDGREAT)
+		{
+			tmp_tk = (t_token*)tokens->array[i + 1]->content;
+			check_ambiguous_redirect(tmp_tk->data);
+			redirect_output(tmp_tk->data, STDOUT_FILENO, tk->type == ANDDGREAT);
+			fd_aggregation(STDOUT_FILENO, STDERR_FILENO);
 		}
 		else if (tk->type == GREATAND)
 		{
