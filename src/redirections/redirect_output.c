@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 19:15:45 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/19 08:08:01 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/19 17:40:26 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static int	open_file_for_write(char *filename, t_bool append)
 	int	file_fd;
 	int	write_mode;
 
-	write_mode = O_WRONLY | O_APPEND;
-	write_mode |= append == TRUE ? 0 : O_CREAT | O_TRUNC;
+	write_mode = O_WRONLY | O_CREAT | (append == TRUE ? O_APPEND : O_TRUNC);
 	file_fd = open(filename, write_mode, UMASK);
 	check_output_file_errors(filename);
 	return (file_fd);
