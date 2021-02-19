@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 13:24:24 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/14 11:46:10 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:15:23 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ static void	exit_error(t_token_type token_type)
 {
 	static const char	*tokens_keys[] = {
 		"",
+		"newline",
 		"WORD",
-		"IO_NUMBER",
 		";",
 		"|",
-		"<<-",
-		"<<",
-		"<",
-		"&>>",
-		"&>",
-		">>",
-		">&-",
-		">&",
+		"IO_NUMBER",
 		">",
-		"newline",
+		">>",
+		"&>",
+		"&>>",
+		"<",
+		"<<",
+		"<<-",
+		">&",
+		">&-",
 	};
 	char				*error_msg;
 
