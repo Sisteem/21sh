@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_file.c                                        :+:      :+:    :+:   */
+/*   redirect_output.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 19:05:36 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 19:06:29 by ylagtab          ###   ########.fr       */
+/*   Created: 2021/02/18 19:15:45 by ylagtab           #+#    #+#             */
+/*   Updated: 2021/02/19 08:08:01 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,28 @@ static void	check_output_file_errors(char *filename)
 		g_errno = EACCESS;
 }
 
-int			open_file(t_redirect_input_info *redirect_input_info)
+static int	open_file_for_write(char *filename, t_bool append)
 {
 	int	file_fd;
 	int	write_mode;
 
 	write_mode = O_WRONLY | O_APPEND;
-	write_mode |= redirect_input_info->append == TRUE ? 0 : O_CREAT | O_TRUNC;
-	file_fd = open(redirect_input_info->file_pathname, write_mode, UMASK);
-	check_output_file_errors(redirect_input_info->file_pathname);
+	write_mode |= append == TRUE ? 0 : O_CREAT | O_TRUNC;
+	file_fd = open(filename, write_mode, UMASK);
+	check_output_file_errors(filename);
 	return (file_fd);
+}
+
+void		redirect_output(char *filename, int io_number, t_bool append)
+{
+	int	file_fd;
+
+	file_fd = open_file_for_write(filename, append);
+	if (file_fd < 0)
+		ft_perror(filename, NULL, TRUE);
+	if (dup2(file_fd, io_number) == -1)
+	{
+		g_errno = EREDIRECTION;
+		ft_perror(NULL, NULL, TRUE);
+	}
 }

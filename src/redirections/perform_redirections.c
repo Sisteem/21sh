@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 19:09:01 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/19 08:06:09 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,30 @@
 
 void		perform_redirections(t_vector *tokens)
 {
-	t_redirect_input_info	redirect_input_info;
-	t_token					*tk;
-	size_t					i;
+	t_token	*tk;
+	int		io_number;
+	size_t	i;
 
 	i = 0;
-	redirect_input_info.fd = -1;
+	io_number = -1;
 	while (i < tokens->length)
 	{
 		tk = (t_token*)tokens->array[i]->content;
 		if (tk->type == IO_NUMBER)
-			redirect_input_info.fd = *(int*)tk->data;
-		if (tk->type == GREAT || tk->type == DGREAT)
+			io_number = *(int*)tk->data;
+		else if (tk->type == GREAT || tk->type == DGREAT)
 		{
-			if (redirect_input_info.fd == -1)
-				redirect_input_info.fd = STDOUT_FILENO;
-			redirect_input_info.append = tk->type == DGREAT;
+			if (io_number == -1)
+				io_number = STDOUT_FILENO;
 			tk = (t_token*)tokens->array[i + 1]->content;
-			redirect_input_info.file_pathname = tk->data;
-			redirect_input(&redirect_input_info);
+			redirect_output(tk->data, io_number, tk->type == DGREAT);
+		}
+		else if (tk->type == LESS)
+		{
+			if (io_number == -1)
+				io_number = STDIN_FILENO;
+			tk = (t_token*)tokens->array[i + 1]->content;
+			redirect_input(tk->data, io_number);
 		}
 		++i;
 	}
