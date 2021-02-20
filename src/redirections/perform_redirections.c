@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/19 17:48:50 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/20 12:09:10 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		perform_redirections(t_vector *tokens)
 			if (io_number == -1)
 				io_number = STDOUT_FILENO;
 			tmp_tk = (t_token*)tokens->array[i + 1]->content;
-			fd_aggregation(io_number, ft_atoi(tmp_tk->data));
+			fd_aggregation(ft_atoi(tmp_tk->data), io_number);
 		}
 		else if (tk->type == GREATANDDASH)
 		{
