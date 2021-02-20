@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 17:34:20 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/14 09:26:44 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/20 16:25:08 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	split_words(t_vector *words, char *str)
 		if (str[i])
 		{
 			word = get_word(str, &i);
-			ft_vector_add(words, word, sizeof(char*));
+			ft_vector_add(words, &word, sizeof(char*));
 		}
 	}
 }
@@ -87,7 +87,7 @@ void	tokens_to_fileds(t_vector *tokens, size_t *index)
 		ft_vector_remove_at(tokens, *index, token_del);
 		while (words.length > 0)
 		{
-			tk.data = (words.array[words.length - 1]->content);
+			tk.data = *((char**)words.array[words.length - 1]->content);
 			tk.type = WORD;
 			ft_vector_add_at(tokens, *index, &tk, sizeof(t_token));
 			free(words.array[words.length - 1]);
