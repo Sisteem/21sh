@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 16:57:51 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/22 17:50:25 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,25 +87,20 @@ static char		**tokens_to_strings_array(t_vector *tokens)
 	return (array);
 }
 
-void			exec_simple_command(t_vector *tokens)
+int			exec_simple_command(t_vector *tokens)
 {
 	char *exe_path;
 	char **args;
 	char **envp;
 
-	(void)args;
 	perform_redirections(tokens);
 	if (tokens->length == 0)
-		return ;
+		return (1);
 	exe_path = get_executable_pathname(tokens->array[0]->content);
 	if (exe_path == NULL)
 		ft_perror(((t_token*)tokens->array[0]->content)->data, NULL, TRUE);
 	args = tokens_to_strings_array(tokens);
 	envp = mini_env_to_envp(g_shell_env);
-	if (fork() == 0)
-	{
-		execve(exe_path, args, envp);
-	}
-	else
-		waitpid(0, NULL, 0);
+	execve(exe_path, args, envp);
+	return (1);
 }
