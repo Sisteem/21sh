@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 16:46:11 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/22 18:05:27 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ char		*read_cmd(void)
 
 int			main(int ac, char *av[], char *envp[])
 {
-	t_vector	*args;
-	t_command	*cmd;
+	t_vector	*commands;
 	char		*line;
 
 	g_shell_env = env_init(envp);
@@ -78,9 +77,6 @@ int			main(int ac, char *av[], char *envp[])
 		line = read_cmd();
 	else
 		line = av[ac - 1];
-	args = parse_command(line);
-	cmd = (t_command*)args->array[0]->content;
-	exec_simple_command(cmd->tokens);
-	(void)args;
-	return (0);
+	commands = parse_command(line);
+	return (exec_commands(commands));
 }
