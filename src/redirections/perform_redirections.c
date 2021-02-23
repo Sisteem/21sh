@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/20 12:09:10 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/21 08:46:53 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ void		perform_redirections(t_vector *tokens)
 			tmp_tk = (t_token*)tokens->array[i + 1]->content;
 			redirect_input(tmp_tk->data, io_number);
 		}
+		else if (tk->type == DLESS)
+		{
+			if (io_number == -1)
+				io_number = STDIN_FILENO;
+			tmp_tk = (t_token*)tokens->array[i + 1]->content;
+			here_document(io_number, tmp_tk->data);
+		}
+
 		++i;
 	}
 	remove_redirections_tokens(tokens);
