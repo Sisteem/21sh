@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/23 19:11:21 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/23 19:22:38 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,25 @@ static int	**create_pipes_fd(size_t count)
 		}
 		++i;
 	}
+	return (pipes_fds);
+}
+
+static int	**close_pipes_fd(int **pipes_fds, size_t count)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (close(pipes_fds[i][0]) == -1 || close(pipes_fds[i][1]) == -1)
+		{
+			g_errno = EUNK;
+			ft_perror(NULL, NULL, TRUE);
+		}
+		ft_memdel((void**)&(pipes_fds[i]));
+		++i;
+	}
+	free(pipes_fds);
 	return (pipes_fds);
 }
 
