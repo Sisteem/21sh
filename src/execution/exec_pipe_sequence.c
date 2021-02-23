@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_sequence.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/22 18:26:24 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/23 10:28:09 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,25 @@ static int	**create_pipes_fd(size_t count)
 	return (pipes_fds);
 }
 
+static int	**close_pipes_fd(int **pipes_fds, size_t count)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (close(pipes_fds[i][0]) == -1 || close(pipes_fds[i][1]) == -1)
+		{
+			g_errno = EUNK;
+			ft_perror(NULL, NULL, TRUE);
+		}
+		ft_memdel((void**)&(pipes_fds[i]));
+		++i;
+	}
+	free(pipes_fds);
+	return (pipes_fds);
+}
+
 static int	exec_pipe_command(t_command *cmd, t_command_fds *command_fds)
 {
 	if (command_fds->in != -1)
@@ -109,5 +128,6 @@ int	exec_pipe_sequence(t_vector *tokens)
 	}
 	while (waitpid(-1, NULL, 0) != -1)
 		;
+	close_pipes_fd(pipes_fds, commands.length - 1);
 	return (0);
 }
