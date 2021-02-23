@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:11:27 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/22 16:15:01 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/23 16:57:29 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 typedef struct	s_command_fds
 {
-	int	in;
-	int	out;
+	int	input_fd_to_dup;
+	int	output_fd_to_dup;
+	int	input_fd_to_close;
+	int	output_fd_to_close;
 }				t_command_fds;
 
 
