@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/24 15:58:57 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/24 16:45:28 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,18 @@ int	**close_pipes(int **pipes, size_t count)
 static int	exec_pipe_command(t_command *cmd, t_command_fds *command_fds)
 {
 	if (command_fds->in != -1)
-	{
 		if (dup2(command_fds->in, STDIN_FILENO) == -1)
 		{
 			g_errno = EREDIRECTION;
 			ft_perror(NULL, NULL, TRUE);
 		}
-		close(command_fds->in);
-	}
 
 	if (command_fds->out != -1)
-	{
 		if (dup2(command_fds->out, STDOUT_FILENO) == -1)
 		{
 			g_errno = EREDIRECTION;
 			ft_perror(NULL, NULL, TRUE);
 		}
-		close(command_fds->out);
-	}
-	if (command_fds->to_close[0] != -1)
-		close(command_fds->to_close[0]);
-	if (command_fds->to_close[1] != -1)
-		close(command_fds->to_close[1]);
 	return (exec_simple_command(cmd->tokens));
 }
 
@@ -133,13 +123,11 @@ int	exec_pipe_sequence(t_vector *tokens)
 		cmd = commands.array[i]->content;
 		command_fds.in = i == 0 ? -1 : pipes[i - 1][0];
 		command_fds.out = i == commands.length - 1 ? -1 : pipes[i][1];
-		command_fds.to_close[0] = i == commands.length - 1 ? -1 : pipes[i][0];
-		command_fds.to_close[1] = i == 0 ? -1 : pipes[i - 1][1];
 		if (fork() == 0)
 			return (exec_pipe_command(cmd, &command_fds));
+		close(command_fds.out);
 		++i;
 	}
-	close_pipes(pipes, commands.length - 1);
 	while (wait(NULL) != -1)
 		;
 	return (0);
