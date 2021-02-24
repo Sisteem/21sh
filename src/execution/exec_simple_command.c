@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/22 17:50:25 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/24 18:50:21 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char			*search_executable_in_path(char *cmd)
 	t_error	err;
 
 	g_errno = ECMDNOTFOUND;
-	if ((path_env_var = env_get(g_shell_env, "PATH")) == NULL)
+	if ((path_env_var = env_get("PATH")) == NULL)
 		return (NULL);
 	path_dirs = ft_strsplit(path_env_var, ':');
 	exe_path = NULL;
@@ -96,11 +96,13 @@ int			exec_simple_command(t_vector *tokens)
 	perform_redirections(tokens);
 	if (tokens->length == 0)
 		return (1);
+	args = tokens_to_strings_array(tokens);
+	if (is_built_in(args[0]))
+		return (run_built_in(args, ft_strings_array_length(args + 1)));
 	exe_path = get_executable_pathname(tokens->array[0]->content);
 	if (exe_path == NULL)
 		ft_perror(((t_token*)tokens->array[0]->content)->data, NULL, TRUE);
-	args = tokens_to_strings_array(tokens);
-	envp = mini_env_to_envp(g_shell_env);
+	envp = shell_env_to_envp(g_shell_env);
 	execve(exe_path, args, envp);
 	return (1);
 }

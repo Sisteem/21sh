@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:58:23 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/09 17:29:23 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/24 16:36:18 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,27 @@ static int	is_valid_name(char *name)
 	return (1);
 }
 
-void		env_set(t_vector *mini_env, char **args, size_t args_len)
+int		env_set(char **args, size_t args_len)
 {
 	char	*usage;
 
 	usage = "usage: setenv name value\nname: [a-zA-Z_][a-zA-Z0-9_]*\n";
-	if (args_len != 3)
+	if (args_len != 2)
 	{
 		ft_printf(2, "minishell: setenv: wrong number of arguments\n%s", usage);
-		return ;
+		return (1);
 	}
 	if (!is_valid_name(args[1]))
 	{
 		ft_printf(2, "minishell: setenv: not valid name\n%s", usage);
-		return ;
+		return (1);
 	}
-	env_remove(mini_env, args[1]);
-	env_add(mini_env, args[1], args[2]);
+	env_remove(args[1]);
+	env_add(args[0], args[1]);
+	return (0);
 }
 
-void		env_unset(t_vector *mini_env, char **args, size_t args_len)
+int		env_unset(char **args, size_t args_len)
 {
 	(void)args_len;
 	while (*args)
@@ -56,12 +57,13 @@ void		env_unset(t_vector *mini_env, char **args, size_t args_len)
 		{
 			ft_printf(2, "minishell: unsetenv: %s not valid name\n", *args);
 		}
-		env_remove(mini_env, *args);
+		env_remove(*args);
 		++args;
 	}
+	return (0);
 }
 
-void		env(t_vector *mini_env, char **args, size_t args_len)
+int		env(char **args, size_t args_len)
 {
 	t_env_var	var;
 	size_t		i;
@@ -71,14 +73,15 @@ void		env(t_vector *mini_env, char **args, size_t args_len)
 	(void)args;
 	if (args_len != 1)
 	{
-		ft_printf(2, "minishell: setenv: wrong number of arguments\n%s", usage);
-		return ;
+		ft_printf(2, "minishell: env: wrong number of arguments\n%s", usage);
+		return (1);
 	}
 	i = 0;
-	while (i < mini_env->length)
+	while (i < g_shell_env->length)
 	{
-		var = *(t_env_var *)(mini_env->array[i]->content);
+		var = *(t_env_var *)(g_shell_env->array[i]->content);
 		ft_printf(1, "%s=%s\n", var.key, var.value);
 		i++;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/02/21 12:23:35 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/02/24 16:38:08 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ CC = gcc
 	redirections/redirect_input.o redirections/remove_redirections_tokens.o \
 	redirections/fd_aggregation.o redirections/here_document.o \
 	built_in/cd.o built_in/cd_utils.o built_in/env.o built_in/env_tools.o \
-	built_in/env_ops.o built_in/run_built_in.o built_in/echo.o built_in/exit.o
+	built_in/env_ops.o built_in/run_built_in.o built_in/echo.o built_in/exit.o \
+	built_in/is_built_in.o
 
 21sh_OBJS = $(addprefix $(OBJS_DIR)/, ${21sh})
 
