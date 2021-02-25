@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/24 16:45:28 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 17:33:04 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static int	exec_pipe_command(t_command *cmd, t_command_fds *command_fds)
 			g_errno = EREDIRECTION;
 			ft_perror(NULL, NULL, TRUE);
 		}
-	return (exec_simple_command(cmd->tokens));
+	return (exec_simple_command(cmd->tokens, FALSE));
 }
 
 int	exec_pipe_sequence(t_vector *tokens)

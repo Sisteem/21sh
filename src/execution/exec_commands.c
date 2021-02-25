@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 10:11:12 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 15:40:22 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 17:32:56 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	exec_commands(t_vector *commands)
 		save_standard_fds();
 		cmd = (t_command*)commands->array[i]->content;
 		if (cmd->type == SIMPLE_CMD)
-			ret_value = exec_simple_command(cmd->tokens);
+			ret_value = exec_simple_command(cmd->tokens, TRUE);
 		else
 			ret_value = exec_pipe_sequence(cmd->tokens);
 		++i;
