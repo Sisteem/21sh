@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 10:11:12 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 12:29:45 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 15:40:22 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ static void	save_standard_fds(void)
 
 static void	restore_standard_fds(void)
 {
-	if (dup2(STDIN_FILENO, g_stdin_fd) == -1)
+	if (dup2(g_stdin_fd, STDIN_FILENO) == -1 || close(g_stdin_fd) == -1)
 		ft_strerror(EUNK, NULL, NULL, TRUE);
-	if (dup2(STDOUT_FILENO, g_stdout_fd) == -1)
+	if (dup2(g_stdout_fd, STDOUT_FILENO) == -1 || close(g_stdout_fd) == -1)
 		ft_strerror(EUNK, NULL, NULL, TRUE);
-	if (dup2(STDERR_FILENO, g_stderr_fd) == -1)
+	if (dup2(g_stderr_fd, STDERR_FILENO) == -1 || close(g_stderr_fd) == -1)
 		ft_strerror(EUNK, NULL, NULL, TRUE);
+
 }
 
 int	exec_commands(t_vector *commands)
