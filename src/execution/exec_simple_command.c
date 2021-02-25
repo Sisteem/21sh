@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/24 18:50:21 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 12:28:34 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int			exec_simple_command(t_vector *tokens)
 	char *exe_path;
 	char **args;
 	char **envp;
+	int		exit_status;
 
 	perform_redirections(tokens);
 	if (tokens->length == 0)
@@ -103,6 +104,12 @@ int			exec_simple_command(t_vector *tokens)
 	if (exe_path == NULL)
 		ft_perror(((t_token*)tokens->array[0]->content)->data, NULL, TRUE);
 	envp = shell_env_to_envp(g_shell_env);
-	execve(exe_path, args, envp);
-	return (1);
+	if (fork() == 0)
+	{
+		execve(exe_path, args, envp);
+		return (EUNK);
+	}
+	else
+		wait(&exit_status);
+	return (exit_status);
 }

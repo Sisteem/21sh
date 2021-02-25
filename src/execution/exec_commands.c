@@ -6,33 +6,53 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 10:11:12 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/23 08:26:29 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 12:29:45 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
+int			g_stdin_fd;
+int			g_stdout_fd;
+int			g_stderr_fd;
+
+static void	save_standard_fds(void)
+{
+	if ((g_stdin_fd = dup(STDIN_FILENO)) == -1)
+		ft_strerror(EUNK, NULL, NULL, TRUE);
+	if ((g_stdout_fd = dup(STDOUT_FILENO)) == -1)
+		ft_strerror(EUNK, NULL, NULL, TRUE);
+	if ((g_stderr_fd = dup(STDERR_FILENO)) == -1)
+		ft_strerror(EUNK, NULL, NULL, TRUE);
+}
+
+static void	restore_standard_fds(void)
+{
+	if (dup2(STDIN_FILENO, g_stdin_fd) == -1)
+		ft_strerror(EUNK, NULL, NULL, TRUE);
+	if (dup2(STDOUT_FILENO, g_stdout_fd) == -1)
+		ft_strerror(EUNK, NULL, NULL, TRUE);
+	if (dup2(STDERR_FILENO, g_stderr_fd) == -1)
+		ft_strerror(EUNK, NULL, NULL, TRUE);
+}
+
 int	exec_commands(t_vector *commands)
 {
 	t_command	*cmd;
-	pid_t		child_pid;
 	size_t		i;
-	int			return_value;
+	int			ret_value;
 
 	i = 0;
 	while (i < commands->length)
 	{
-		child_pid = fork();
+		save_standard_fds();
 		cmd = (t_command*)commands->array[i]->content;
-		if (child_pid == 0)
-		{
-			if (cmd->type == SIMPLE_CMD)
-				return (exec_simple_command(cmd->tokens));
-			return (exec_pipe_sequence(cmd->tokens));
-		}
-		waitpid(child_pid, &return_value, 0);
+		if (cmd->type == SIMPLE_CMD)
+			ret_value = exec_simple_command(cmd->tokens);
+		else
+			ret_value = exec_pipe_sequence(cmd->tokens);
 		++i;
-
+		restore_standard_fds();
 	}
-	return (return_value);
+	return (ret_value);
 }
