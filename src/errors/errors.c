@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:01:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/19 11:51:24 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:31:28 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ const char	*g_error_message_string[] = {
 	"is a directory",
 	"Redirection error",
 	"ambiguous redirect",
+	"syntax error near unexpected token"
 	"An error has occured"
 };
 

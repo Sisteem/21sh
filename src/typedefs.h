@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:11:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/19 11:50:26 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:46:00 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum	e_error
 	EPATHISDIR,
 	EREDIRECTION,
 	EAMBIGREDIRECT,
+	ESYNTAX,
 	EUNK
 }				t_error;
 
