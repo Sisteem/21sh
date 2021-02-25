@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 10:00:01 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/13 19:21:55 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:35:48 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void			add_token_to_list(t_tokenization *t)
 	{
 		t->token[t->t_index] = '\0';
 		io_number = ft_atoi(t->token);
-		token.data = malloc(sizeof(int));
+		token.data = ft_malloc(sizeof(int));
 		ft_memcpy(token.data, (void *)&io_number, sizeof(int));
 	}
 	t->t_index = 0;
