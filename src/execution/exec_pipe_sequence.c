@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 17:33:04 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 19:12:31 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	**create_pipes(size_t count)
 		if (pipe(pipes[i]) == -1)
 		{
 			g_errno = EUNK;
-			ft_perror(NULL, NULL, TRUE);
+			ft_perror(NULL, NULL, FALSE);
 		}
 		++i;
 	}
@@ -80,7 +80,7 @@ int	**close_pipes(int **pipes, size_t count)
 		if (close(pipes[i][0]) == -1 || close(pipes[i][1]) == -1)
 		{
 			g_errno = EUNK;
-			ft_perror(NULL, NULL, TRUE);
+			ft_perror(NULL, NULL, FALSE);
 		}
 		ft_memdel((void**)&(pipes[i]));
 		++i;

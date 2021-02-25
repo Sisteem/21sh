@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/21 08:46:53 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 19:08:01 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_ambiguous_redirect(char *str)
 	if (str == NULL || *str == '\0')
 	{
 		g_errno = EAMBIGREDIRECT;
-		ft_perror(NULL, NULL, TRUE);
+		ft_perror(NULL, NULL, FALSE);
 	}
 }
 

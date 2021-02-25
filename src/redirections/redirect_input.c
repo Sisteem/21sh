@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 19:15:45 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/19 08:09:04 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 19:07:53 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void		redirect_input(char *filename, int io_number)
 
 	file_fd = open_file_for_read(filename);
 	if (file_fd < 0)
-		ft_perror(filename, NULL, TRUE);
+		ft_perror(filename, NULL, FALSE);
 	if (dup2(file_fd, io_number) == -1)
 	{
 		g_errno = EREDIRECTION;
-		ft_perror(NULL, NULL, TRUE);
+		ft_perror(NULL, NULL, FALSE);
 	}
 }

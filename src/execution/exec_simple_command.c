@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 17:35:30 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 19:05:58 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int			exec_simple_command(t_vector *tokens, t_bool run_in_child)
 		return (run_built_in(args, ft_strings_array_length(args + 1)));
 	exe_path = get_executable_pathname(tokens->array[0]->content);
 	if (exe_path == NULL)
-		ft_perror(((t_token*)tokens->array[0]->content)->data, NULL, TRUE);
+		ft_perror(((t_token*)tokens->array[0]->content)->data, NULL, FALSE);
 	envp = shell_env_to_envp(g_shell_env);
 	if (run_in_child == FALSE || fork() == 0)
 	{
