@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 13:24:24 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 11:46:09 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/26 09:32:37 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	is_redirection(t_token_type type)
 		type == ANDDGREAT ||
 		type == ANDGREAT ||
 		type == DGREAT ||
-		type == GREATANDDASH ||
 		type == GREATAND ||
 		type == GREAT);
 }
@@ -44,10 +43,9 @@ static int	handle_error(t_token_type token_type)
 		"`>&`",
 		"`>&-`"
 	};
-
 	g_errno = ESYNTAX;
 	ft_perror(NULL, (char*)tokens_keys[token_type], FALSE);
-	return (ESYNTAX);
+	return (-1);
 }
 
 int			syntax_analys(t_vector *tokens)

@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:41:42 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 11:46:06 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/26 08:46:18 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vector	*parse_command(char *cmd)
 	t_vector	*commands;
 
 	tokens = tokenization(cmd);
-	if (syntax_analys(tokens) != EXIT_SUCCESS)
+	if (syntax_analys(tokens) == -1)
 		return (NULL);
 	commands = construct_commands(tokens);
 	return (commands);
