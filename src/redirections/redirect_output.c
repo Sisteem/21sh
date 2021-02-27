@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 19:15:45 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 19:06:40 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/26 09:51:05 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ static void	check_output_file_errors(char *filename)
 {
 	struct stat st;
 
-	g_errno = 0;
-	if (stat(filename, &st) == -1)
-		g_errno = EUNK;
+	g_errno = EUNK;
+	stat(filename, &st);
 	if (S_ISDIR(st.st_mode))
 		g_errno = EPATHISDIR;
 	else if (access(filename, W_OK) == -1)
@@ -32,20 +31,22 @@ static int	open_file_for_write(char *filename, t_bool append)
 
 	write_mode = O_WRONLY | O_CREAT | (append == TRUE ? O_APPEND : O_TRUNC);
 	file_fd = open(filename, write_mode, UMASK);
-	check_output_file_errors(filename);
+	if (file_fd < 0)
+		check_output_file_errors(filename);
 	return (file_fd);
 }
 
-void		redirect_output(char *filename, int io_number, t_bool append)
+int		redirect_output(char *filename, int io_number, t_bool append)
 {
 	int	file_fd;
 
 	file_fd = open_file_for_write(filename, append);
 	if (file_fd < 0)
-		ft_perror(filename, NULL, FALSE);
+		return (-1);
 	if (dup2(file_fd, io_number) == -1)
 	{
 		g_errno = EREDIRECTION;
-		ft_perror(NULL, NULL, FALSE);
+		return (-1);
 	}
+	return (EXIT_SUCCESS);
 }

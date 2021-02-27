@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 19:12:31 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/27 15:22:41 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,16 @@ int	**close_pipes(int **pipes, size_t count)
 	return (pipes);
 }
 
-static int	exec_pipe_command(t_command *cmd, t_command_fds *command_fds)
+static int	exec_pipe_command(t_command *cmd, t_command_fds *cmd_fds)
 {
-	if (command_fds->in != -1)
-		if (dup2(command_fds->in, STDIN_FILENO) == -1)
+	if (cmd_fds->in != -1)
+		if (dup2(cmd_fds->in, STDIN_FILENO) == -1)
 		{
 			g_errno = EREDIRECTION;
 			ft_perror(NULL, NULL, TRUE);
 		}
-
-	if (command_fds->out != -1)
-		if (dup2(command_fds->out, STDOUT_FILENO) == -1)
+	if (cmd_fds->out != -1)
+		if (dup2(cmd_fds->out, STDOUT_FILENO) == -1)
 		{
 			g_errno = EREDIRECTION;
 			ft_perror(NULL, NULL, TRUE);
@@ -109,10 +108,10 @@ static int	exec_pipe_command(t_command *cmd, t_command_fds *command_fds)
 
 int	exec_pipe_sequence(t_vector *tokens)
 {
-	t_command_fds	command_fds;
+	t_command_fds	cmd_fds;
 	t_vector		commands;
 	int				**pipes;
-	t_command		*cmd;
+	int				exit_status;
 	size_t			i;
 
 	split_pipe_sequence_commands(tokens, &commands);
@@ -120,15 +119,14 @@ int	exec_pipe_sequence(t_vector *tokens)
 	i = 0;
 	while (i < commands.length)
 	{
-		cmd = commands.array[i]->content;
-		command_fds.in = i == 0 ? -1 : pipes[i - 1][0];
-		command_fds.out = i == commands.length - 1 ? -1 : pipes[i][1];
+		cmd_fds.in = i == 0 ? -1 : pipes[i - 1][0];
+		cmd_fds.out = i == commands.length - 1 ? -1 : pipes[i][1];
 		if (fork() == 0)
-			return (exec_pipe_command(cmd, &command_fds));
-		close(command_fds.out);
+			return (exec_pipe_command(commands.array[i]->content, &cmd_fds));
+		close(cmd_fds.out);
 		++i;
 	}
-	while (wait(NULL) != -1)
+	while (wait(&exit_status) != -1)
 		;
-	return (0);
+	return (exit_status);
 }
