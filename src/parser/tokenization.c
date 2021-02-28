@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 10:00:01 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 11:35:48 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 16:41:25 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static t_token_type	fill_number(char **str, t_tokenization *t)
 		++(t->t_index);
 		++(*str);
 	}
-	if (**str == '>' || (t->token_type == GREATAND && !is_word(**str, 0)))
+	if (**str == '>' || **str == '<' ||
+		(t->token_type == GREATAND && !is_word(**str, 0)))
 		return (IO_NUMBER);
 	return (WORD);
 }
