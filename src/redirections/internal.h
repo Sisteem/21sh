@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   internal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 18:41:42 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:11:33 by ylagtab          ###   ########.fr       */
+/*   Created: 2021/02/18 18:52:14 by ylagtab           #+#    #+#             */
+/*   Updated: 2021/02/28 11:29:21 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
+#ifndef INTERNAL_H
+# define INTERNAL_H
 
-t_vector	*parse_command(char *cmd)
-{
-	t_vector	*tokens;
-	t_vector	*commands;
+# include "twenty_one.h"
 
-	tokens = tokenization(cmd);
-	if (syntax_analys(tokens) == -1)
-		return (NULL);
-	commands = construct_commands(tokens);
-	return (commands);
-}
+# define UMASK 0644
+
+void	remove_redirections_tokens(t_vector *tokens);
+int		redirect_output(char *filename, int io_number, t_bool append);
+int		redirect_input(char *filename, int io_number);
+int		fd_aggregation(int old_fd, int new_fd);
+void	here_document(int fd, char *delimeter);
+void	close_output(int io_number);
+
+#endif

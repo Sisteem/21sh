@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 18:41:42 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:11:33 by ylagtab          ###   ########.fr       */
+/*   Created: 2021/02/14 17:10:26 by ylagtab           #+#    #+#             */
+/*   Updated: 2021/02/21 12:24:12 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
+#ifndef EXECUTION_H
+# define EXECUTION_H
 
-t_vector	*parse_command(char *cmd)
-{
-	t_vector	*tokens;
-	t_vector	*commands;
+int		exec_commands(t_vector *commands);
 
-	tokens = tokenization(cmd);
-	if (syntax_analys(tokens) == -1)
-		return (NULL);
-	commands = construct_commands(tokens);
-	return (commands);
-}
+#endif

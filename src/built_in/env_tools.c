@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/30 03:05:41 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/13 14:46:33 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/24 16:22:32 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,33 +47,20 @@ t_vector		*env_init(char **envp)
 	return (sh_env);
 }
 
-char			**mini_env_to_envp(t_vector *mini_env)
+char			**shell_env_to_envp(t_vector *shell_env)
 {
 	t_env_var	var;
 	char		**envp;
 	size_t		i;
 
 	i = 0;
-	envp = (char **)ft_malloc((mini_env->length + 1) * sizeof(char *));
-	while (i < mini_env->length)
+	envp = (char **)ft_malloc((shell_env->length + 1) * sizeof(char *));
+	while (i < shell_env->length)
 	{
-		var = *(t_env_var *)(mini_env->array[i]->content);
+		var = *(t_env_var *)(shell_env->array[i]->content);
 		envp[i] = ft_strglue(var.key, '=', var.value);
 		i++;
 	}
 	envp[i] = NULL;
 	return (envp);
-}
-
-void			free_envp(char **envp)
-{
-	size_t		i;
-
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		free(envp[i]);
-		++i;
-	}
-	free(envp);
 }

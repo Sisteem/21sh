@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 16:52:12 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/13 18:20:35 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/24 16:36:57 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static char	*escape_quotes_backslashes(char *str)
 	return (s);
 }
 
-char		*env_get(t_vector *mini_env, char *key)
+char		*env_get(char *key)
 {
 	t_env_var	var;
 	size_t		i;
 
 	i = 0;
-	while (i < mini_env->length)
+	while (i < g_shell_env->length)
 	{
-		var = *(t_env_var *)(mini_env->array[i]->content);
+		var = *(t_env_var *)(g_shell_env->array[i]->content);
 		if (ft_strcmp(key, var.key) == 0)
 			return (escape_quotes_backslashes(var.value));
 		i++;
@@ -63,27 +63,27 @@ char		*env_get(t_vector *mini_env, char *key)
 	return (NULL);
 }
 
-void		env_add(t_vector *mini_env, char *key, char *value)
+void		env_add(char *key, char *value)
 {
 	t_env_var var;
 
 	var.key = ft_strdup(key);
 	var.value = ft_strdup(value);
-	ft_vector_add(mini_env, &var, sizeof(t_env_var));
+	ft_vector_add(g_shell_env, &var, sizeof(t_env_var));
 }
 
-void		env_remove(t_vector *mini_env, char *key)
+void		env_remove(char *key)
 {
 	t_env_var	var;
 	size_t		i;
 
 	i = 0;
-	while (i < mini_env->length)
+	while (i < g_shell_env->length)
 	{
-		var = *(t_env_var *)(mini_env->array[i]->content);
+		var = *(t_env_var *)(g_shell_env->array[i]->content);
 		if (ft_strcmp(key, var.key) == 0)
 		{
-			ft_vector_remove_at(mini_env, i, free_env_var);
+			ft_vector_remove_at(g_shell_env, i, free_env_var);
 			return ;
 		}
 		i++;

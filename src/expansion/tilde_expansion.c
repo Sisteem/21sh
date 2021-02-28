@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:34:41 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/12 12:00:34 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:44:40 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*expand_tilde(char *word, char *result, size_t *end, size_t *start)
 	char	*tilde;
 	char	*str;
 
-	tilde = env_get(g_shell_env, "HOME");
+	tilde = env_get("HOME");
 	if (tilde == NULL)
 		tilde = ft_strdup("");
 	str = ft_strsub(word, *start, *end - *start);

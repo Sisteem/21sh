@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 18:41:42 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:11:33 by ylagtab          ###   ########.fr       */
+/*   Created: 2021/02/17 09:55:34 by ylagtab           #+#    #+#             */
+/*   Updated: 2021/02/18 12:14:31 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-t_vector	*parse_command(char *cmd)
-{
-	t_vector	*tokens;
-	t_vector	*commands;
+extern t_error	g_errno;
 
-	tokens = tokenization(cmd);
-	if (syntax_analys(tokens) == -1)
-		return (NULL);
-	commands = construct_commands(tokens);
-	return (commands);
-}
+void			ft_perror(char *prefix, char *suffix, t_bool exit_on_error);
+void			ft_strerror(t_error e, char *prefix, char *suffix,
+					t_bool exit_on_error);
+
+#endif

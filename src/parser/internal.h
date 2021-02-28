@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 09:53:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/14 08:18:15 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 09:10:40 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,22 @@ typedef struct	s_construct_commands
 	t_command_type	cmd_type;
 }				t_construct_commands;
 
+typedef struct	s_remove_quotes
+{
+	char	str[BUFF_SIZE];
+	int		s_index;
+	int		w_index;
+	char	quote;
+	t_bool	backslash;
+}				t_remove_quotes;
+
 /*
 ** Functions Prototypes
 */
 
 t_vector		*tokenization(char *args_line);
 t_vector		*construct_commands(t_vector *tokens);
-void			syntax_analys(t_vector *tokens);
+int				syntax_analys(t_vector *tokens);
 int				is_word(char c, int quote);
 int				is_number(char c, int quote);
 int				is_operator(char c, int quote);

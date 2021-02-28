@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:08:24 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/14 10:16:38 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/25 11:44:54 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*get_env_var(char *word, size_t *end)
 		++key_len;
 	key = ft_strsub(word, *end, key_len - *end);
 	*end = key_len;
-	var = env_get(g_shell_env, key);
+	var = env_get(key);
 	if (var == NULL)
 		var = ft_strdup("");
 	free(key);

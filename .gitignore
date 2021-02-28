@@ -1,7 +1,5 @@
 .vscode
-
 **/*.o
-
+*.dSYM
 a.out
-
 21sh

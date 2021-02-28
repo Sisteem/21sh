@@ -6,13 +6,13 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 17:34:20 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/14 09:26:44 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:27:25 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-static char		set_quote(char c, char old_quote, char last_char)
+static char	set_quote(char c, char old_quote, char last_char)
 {
 	char quote;
 
@@ -29,7 +29,7 @@ static char		set_quote(char c, char old_quote, char last_char)
 	return (old_quote);
 }
 
-static char		*get_word(char *str, size_t *i)
+static char	*get_word(char *str, size_t *i)
 {
 	char	word[4096];
 	size_t	w_index;
@@ -64,7 +64,7 @@ static void	split_words(t_vector *words, char *str)
 		if (str[i])
 		{
 			word = get_word(str, &i);
-			ft_vector_add(words, word, sizeof(char*));
+			ft_vector_add(words, &word, sizeof(char*));
 		}
 	}
 }
@@ -75,7 +75,7 @@ static void	token_del(void *content, size_t content_size)
 	free(content);
 }
 
-void	tokens_to_fileds(t_vector *tokens, size_t *index)
+void		tokens_to_fileds(t_vector *tokens, size_t *index)
 {
 	t_token		tk;
 	t_vector	words;
@@ -87,7 +87,7 @@ void	tokens_to_fileds(t_vector *tokens, size_t *index)
 		ft_vector_remove_at(tokens, *index, token_del);
 		while (words.length > 0)
 		{
-			tk.data = (words.array[words.length - 1]->content);
+			tk.data = *((char**)words.array[words.length - 1]->content);
 			tk.type = WORD;
 			ft_vector_add_at(tokens, *index, &tk, sizeof(t_token));
 			free(words.array[words.length - 1]);

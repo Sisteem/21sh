@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   redirections.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 18:41:42 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:11:33 by ylagtab          ###   ########.fr       */
+/*   Created: 2021/02/18 18:52:40 by ylagtab           #+#    #+#             */
+/*   Updated: 2021/02/26 10:03:50 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
+#ifndef REDIRECTIONS_H
+# define REDIRECTIONS_H
 
-t_vector	*parse_command(char *cmd)
-{
-	t_vector	*tokens;
-	t_vector	*commands;
+int			perform_redirections(t_vector *tokens);
 
-	tokens = tokenization(cmd);
-	if (syntax_analys(tokens) == -1)
-		return (NULL);
-	commands = construct_commands(tokens);
-	return (commands);
-}
+#endif

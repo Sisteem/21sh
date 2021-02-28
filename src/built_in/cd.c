@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:24:35 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/09 17:29:23 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:10:48 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one.h"
 
-static void		show_error_msg(char *path, t_error err)
+static t_error		show_error_msg(char *path, t_error err)
 {
 	if (err == ENOHOME)
 		ft_printf(2, "minisell: cd: HOME not set\n");
@@ -28,9 +28,10 @@ static void		show_error_msg(char *path, t_error err)
 		ft_printf(2, "minisell: cd: %s: File name too long\n", path);
 	else
 		ft_printf(2, "minisell: cd: %s: An error has occured\n", path);
+	return (err);
 }
 
-static t_error	handle_errors(char *path)
+static t_error		handle_errors(char *path)
 {
 	struct stat	st;
 	int			err;
@@ -52,26 +53,23 @@ static t_error	handle_errors(char *path)
 	return (ENOTDIR);
 }
 
-static t_error	change_dir(t_vector *mini_env, char *path)
+static t_error		change_dir(char *path)
 {
-	char	cwd[PATH_MAX];
 	char	*current_dir;
 	char	*dir_path;
 	t_error	err;
 
-	getcwd(cwd, PATH_MAX);
-	if ((current_dir = env_get(mini_env, "PWD")) == NULL)
-		current_dir = ft_strdup(cwd);
-	if (path[0] == '/')
-		dir_path = ft_strdup(path);
-	else
-		dir_path = join_paths(current_dir, path);
+	if ((current_dir = env_get("PWD")) == NULL)
+		current_dir = getcwd(NULL, PATH_MAX);
+	if (current_dir == NULL)
+		return (EUNK);
+	dir_path = path[0] == '/' ? ft_strdup(path) : join_paths(current_dir, path);
 	if (chdir(dir_path) == 0)
 	{
-		env_remove(mini_env, "PWD");
-		env_remove(mini_env, "OLDPWD");
-		env_add(mini_env, "OLDPWD", current_dir);
-		env_add(mini_env, "PWD", dir_path);
+		env_remove("PWD");
+		env_remove("OLDPWD");
+		env_add("OLDPWD", current_dir);
+		env_add("PWD", dir_path);
 		err = 0;
 	}
 	else
@@ -81,29 +79,30 @@ static t_error	change_dir(t_vector *mini_env, char *path)
 	return (err);
 }
 
-void			cd(t_vector *mini_env, char **args, size_t args_len)
+int					cd(char **args, size_t args_len)
 {
 	char	*path;
 	t_error	err;
 
-	if (args_len > 2)
+	if (args_len > 1)
 	{
 		ft_printf(2, "minishell: cd: to many arguments\n");
-		return ;
+		return (1);
 	}
 	err = 0;
-	path = ft_strdup(args[1]);
+	path = ft_strdup(args[0]);
 	if (path == NULL)
-		if ((path = env_get(mini_env, "HOME")) == NULL)
+		if ((path = env_get("HOME")) == NULL)
 			err = ENOHOME;
-	if (ft_strcmp(path, "-") == 0)
-		if ((path = env_get(mini_env, "OLDPWD")) == NULL)
+	if (ft_strequ(path, "-"))
+		if ((path = env_get("OLDPWD")) == NULL)
 			err = ENOOLPPWD;
 	if (ft_strlen(path) >= PATH_MAX)
 		err = ENAMETOOLONG;
 	if (err == 0)
-		err = change_dir(mini_env, path);
+		err = change_dir(path);
 	if (err)
-		show_error_msg(path, err);
+		return (show_error_msg(path, err));
 	free(path);
+	return (0);
 }
