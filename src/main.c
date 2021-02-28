@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 12:25:40 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/27 15:47:04 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ const char	*g_tokens_keys[] = {
 	"GREATANDDASH",
 };
 
-void			handler(int unused)
+void		handler(int unused)
 {
 	(void)unused;
 }
-
 
 void		print_tokens(t_vector *tokens)
 {
@@ -78,7 +77,7 @@ char		*read_cmd(void)
 	return (cmd);
 }
 
-static	void	free_mini_env(t_vector *mini_env)
+static void	free_mini_env(t_vector *mini_env)
 {
 	size_t		i;
 
@@ -93,12 +92,11 @@ static	void	free_mini_env(t_vector *mini_env)
 	mini_env = NULL;
 }
 
-static int		shell_main(char *arg_cmd)
+static int	shell_main(char *arg_cmd)
 {
 	t_vector	*commands;
 	char		*line;
 	int			ret_status;
-
 
 	while (1337)
 	{
@@ -110,7 +108,6 @@ static int		shell_main(char *arg_cmd)
 		{
 			expansion(commands);
 			ret_status = exec_commands(commands);
-			g_errno = ret_status;
 		}
 		if (arg_cmd != NULL)
 			return (g_errno);
@@ -118,7 +115,7 @@ static int		shell_main(char *arg_cmd)
 	return (0);
 }
 
-int				main(int ac, char *av[], char *envp[])
+int			main(int ac, char *av[], char *envp[])
 {
 	t_vector	mini_env;
 	int			exit_value;

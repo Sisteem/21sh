@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 09:53:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 11:34:13 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 09:10:40 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ typedef struct	s_construct_commands
 	size_t			j;
 	t_command_type	cmd_type;
 }				t_construct_commands;
+
+typedef struct	s_remove_quotes
+{
+	char	str[BUFF_SIZE];
+	int		s_index;
+	int		w_index;
+	char	quote;
+	t_bool	backslash;
+}				t_remove_quotes;
 
 /*
 ** Functions Prototypes
