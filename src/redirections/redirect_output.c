@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 19:15:45 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/26 09:51:05 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 09:33:48 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int		redirect_output(char *filename, int io_number, t_bool append)
 	file_fd = open_file_for_write(filename, append);
 	if (file_fd < 0)
 		return (-1);
+	if (io_number == -1)
+		io_number = STDOUT_FILENO;
 	if (dup2(file_fd, io_number) == -1)
 	{
 		g_errno = EREDIRECTION;

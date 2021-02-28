@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/21 09:27:04 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 09:34:52 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void		here_document(int fd, char *delimeter)
 {
 	int pipe_fd[2];
 
+	if (fd == -1)
+		fd = STDIN_FILENO;
 	if (pipe(pipe_fd) == -1)
 	{
 		g_errno = EUNK;
