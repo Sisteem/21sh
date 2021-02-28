@@ -6,49 +6,11 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/27 15:22:41 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:26:18 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-
-static void	add_command(
-	t_vector *tokens, t_vector *commands, size_t *i, size_t *j)
-{
-	t_command	cmd;
-
-	cmd.type = SIMPLE_CMD;
-	cmd.tokens = ft_vector_new_capacity(*i - *j);
-	while (*j < *i)
-	{
-		cmd.tokens->array[cmd.tokens->length] = tokens->array[*j];
-		++(*j);
-		++(cmd.tokens->length);
-	}
-	ft_vector_add(commands, &cmd, sizeof(t_command));
-}
-
-static void	split_pipe_sequence_commands(t_vector *tokens, t_vector *commands)
-{
-	t_token	*token;
-	size_t	i;
-	size_t	j;
-
-	ft_vector_init(commands);
-	i = 0;
-	j = 0;
-	while (i < tokens->length)
-	{
-		token = (t_token*)tokens->array[i]->content;
-		if (token->type == PIPELINE)
-		{
-			add_command(tokens, commands, &i, &j);
-			++j;
-		}
-		++i;
-	}
-	add_command(tokens, commands, &i, &j);
-}
 
 static int	**create_pipes(size_t count)
 {
@@ -70,23 +32,19 @@ static int	**create_pipes(size_t count)
 	return (pipes);
 }
 
-int	**close_pipes(int **pipes, size_t count)
+static void	free_pipes_array(int **pipes, size_t count)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < count)
 	{
-		if (close(pipes[i][0]) == -1 || close(pipes[i][1]) == -1)
-		{
-			g_errno = EUNK;
-			ft_perror(NULL, NULL, FALSE);
-		}
+		close(pipes[i][0]);
+		close(pipes[i][1]);
 		ft_memdel((void**)&(pipes[i]));
 		++i;
 	}
 	free(pipes);
-	return (pipes);
 }
 
 static int	exec_pipe_command(t_command *cmd, t_command_fds *cmd_fds)
@@ -106,7 +64,7 @@ static int	exec_pipe_command(t_command *cmd, t_command_fds *cmd_fds)
 	return (exec_simple_command(cmd->tokens, FALSE));
 }
 
-int	exec_pipe_sequence(t_vector *tokens)
+int			exec_pipe_sequence(t_vector *tokens)
 {
 	t_command_fds	cmd_fds;
 	t_vector		commands;
@@ -128,5 +86,6 @@ int	exec_pipe_sequence(t_vector *tokens)
 	}
 	while (wait(&exit_status) != -1)
 		;
+	free_pipes_array(pipes, commands.length - 1);
 	return (exit_status);
 }

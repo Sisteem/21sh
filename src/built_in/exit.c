@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 12:07:00 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/24 16:37:43 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:13:13 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	str_is_number(char *s)
 	return (1);
 }
 
-int		exit_shell(char **args, size_t args_len)
+int			exit_shell(char **args, size_t args_len)
 {
 	char *usage;
 

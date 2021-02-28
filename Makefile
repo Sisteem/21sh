@@ -6,7 +6,7 @@
 #    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/02/28 09:29:28 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/02/28 11:26:52 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ CC = gcc
 	expansion/env_var_expansion.o expansion/tokens_to_fileds.o \
 	execution/exec_simple_command.o execution/exec_commands.o \
 	execution/exec_pipe_sequence.o execution/get_executable_pathname.o \
+	execution/split_pipe_sequence_commands.o \
 	errors/errors.o \
 	redirections/perform_redirections.o redirections/redirect_output.o \
 	redirections/redirect_input.o redirections/remove_redirections_tokens.o \

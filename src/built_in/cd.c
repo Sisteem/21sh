@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:24:35 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/24 16:29:43 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:10:48 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_error		show_error_msg(char *path, t_error err)
 	return (err);
 }
 
-static t_error	handle_errors(char *path)
+static t_error		handle_errors(char *path)
 {
 	struct stat	st;
 	int			err;
@@ -53,21 +53,17 @@ static t_error	handle_errors(char *path)
 	return (ENOTDIR);
 }
 
-static t_error	change_dir(char *path)
+static t_error		change_dir(char *path)
 {
-	char	cwd[PATH_MAX];
 	char	*current_dir;
 	char	*dir_path;
 	t_error	err;
 
-	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (EUNK);
 	if ((current_dir = env_get("PWD")) == NULL)
-		current_dir = ft_strdup(cwd);
-	if (path[0] == '/')
-		dir_path = ft_strdup(path);
-	else
-		dir_path = join_paths(current_dir, path);
+		current_dir = getcwd(NULL, PATH_MAX);
+	if (current_dir == NULL)
+		return (EUNK);
+	dir_path = path[0] == '/' ? ft_strdup(path) : join_paths(current_dir, path);
 	if (chdir(dir_path) == 0)
 	{
 		env_remove("PWD");
@@ -83,7 +79,7 @@ static t_error	change_dir(char *path)
 	return (err);
 }
 
-int			cd(char **args, size_t args_len)
+int					cd(char **args, size_t args_len)
 {
 	char	*path;
 	t_error	err;

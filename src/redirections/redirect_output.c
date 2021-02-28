@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 19:15:45 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 09:33:48 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:32:02 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	open_file_for_write(char *filename, t_bool append)
 	return (file_fd);
 }
 
-int		redirect_output(char *filename, int io_number, t_bool append)
+int			redirect_output(char *filename, int io_number, t_bool append)
 {
 	int	file_fd;
 

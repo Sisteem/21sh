@@ -6,13 +6,24 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 19:06:48 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/19 09:32:50 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:30:18 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-void	remove_redirections_tokens(t_vector *tokens)
+static void	delete_token(void *content, size_t content_size)
+{
+	t_token *token;
+
+	(void)content_size;
+	token = (t_token*)content;
+	if (token->type == WORD || token->type == IO_NUMBER)
+		free(token->data);
+	free(content);
+}
+
+void		remove_redirections_tokens(t_vector *tokens)
 {
 	t_token_type	tk_type;
 	size_t			i;

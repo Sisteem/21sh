@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:58:23 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/24 16:36:18 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:12:37 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	is_valid_name(char *name)
 	return (1);
 }
 
-int		env_set(char **args, size_t args_len)
+int			env_set(char **args, size_t args_len)
 {
 	char	*usage;
 
@@ -48,7 +48,7 @@ int		env_set(char **args, size_t args_len)
 	return (0);
 }
 
-int		env_unset(char **args, size_t args_len)
+int			env_unset(char **args, size_t args_len)
 {
 	(void)args_len;
 	while (*args)
@@ -63,7 +63,7 @@ int		env_unset(char **args, size_t args_len)
 	return (0);
 }
 
-int		env(char **args, size_t args_len)
+int			env(char **args, size_t args_len)
 {
 	t_env_var	var;
 	size_t		i;

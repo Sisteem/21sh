@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 13:24:24 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/26 09:32:37 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/02/28 11:27:35 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	handle_error(t_token_type token_type)
 		"`>&`",
 		"`>&-`"
 	};
+
 	g_errno = ESYNTAX;
 	ft_perror(NULL, (char*)tokens_keys[token_type], FALSE);
 	return (-1);
