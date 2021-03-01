@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 09:37:15 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/12 10:03:05 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/01 09:54:06 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static t_token_type	get_less_type(char **str)
 {
+	if (ft_strncmp(*str, "<<-", 2) == 0)
+	{
+		(*str) += 3;
+		return (DLESSDASH);
+	}
 	if (ft_strncmp(*str, "<<", 2) == 0)
 	{
 		(*str) += 2;

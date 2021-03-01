@@ -6,13 +6,32 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 10:29:59 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/01 09:48:29 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-static char	*read_buffer(char *delimiter)
+static char	*remove_leading_tabs(char *str)
+{
+	char	*result;
+	size_t	i;
+
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\t')
+			break ;
+		++i;
+	}
+	result = ft_strdup(str + i);
+	free(str);
+	return (result);
+}
+
+static char	*read_buffer(char *delimiter, t_bool remove_tabs)
 {
 	char	*line;
 	char	*buf;
@@ -23,7 +42,8 @@ static char	*read_buffer(char *delimiter)
 		ft_printf(1, "> ");
 		if (get_next_line(0, &line) == -1)
 			return (buf);
-		if (line && ft_strcmp(line, delimiter) != 0)
+		if (remove_tabs)
+			line = remove_leading_tabs(line);		if (line && ft_strcmp(line, delimiter) != 0)
 		{
 			buf = ft_strjoin_free(buf, line, 1, 1);
 			buf = ft_strjoin_free(buf, "\n", 1, 0);
@@ -33,7 +53,7 @@ static char	*read_buffer(char *delimiter)
 	}
 }
 
-void		here_document(int fd, char *delimeter)
+void		here_document(int fd, char *delimeter, t_bool remove_tabs)
 {
 	int pipe_fd[2];
 
@@ -44,7 +64,7 @@ void		here_document(int fd, char *delimeter)
 		g_errno = EUNK;
 		ft_perror(NULL, NULL, TRUE);
 	}
-	ft_printf(pipe_fd[1], read_buffer(delimeter));
+	ft_printf(pipe_fd[1], read_buffer(delimeter, remove_tabs));
 	close(pipe_fd[1]);
 	if (dup2(pipe_fd[0], fd) == -1)
 	{
