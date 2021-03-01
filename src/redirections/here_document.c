@@ -43,7 +43,8 @@ static char	*read_buffer(char *delimiter, t_bool remove_tabs)
 		if (get_next_line(0, &line) == -1)
 			return (buf);
 		if (remove_tabs)
-			line = remove_leading_tabs(line);		if (line && ft_strcmp(line, delimiter) != 0)
+			line = remove_leading_tabs(line);
+		if (line && ft_strcmp(line, delimiter) != 0)
 		{
 			buf = ft_strjoin_free(buf, line, 1, 1);
 			buf = ft_strjoin_free(buf, "\n", 1, 0);
