@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
+#    By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/02/28 11:26:52 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/03/02 20:21:11 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CC = gcc
 # objects																	   #
 21sh_INC = src/twenty_one.h src/parser/parser.h src/expansion/expansion.h \
 	src/typedefs.h src/errors/errors.h src/redirections/redirections.h
-21sh = main.o \
+21sh = main.o delete_fucntions.o \
 	parser/parser.o parser/tokenization.o parser/tokenization_helpers.o \
 	parser/construct_commands.o parser/syntax_analys.o parser/util.o \
 	parser/remove_quotes.o \

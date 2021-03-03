@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:06:50 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/03 15:54:01 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ char		*read_cmd(void)
 	return (cmd);
 }
 
-static void	free_mini_env(t_vector *mini_env)
+static void	free_shell_env(t_vector *shell_env)
 {
 	size_t		i;
 
 	i = 0;
-	while (i < mini_env->length)
+	while (i < shell_env->length)
 	{
-		free_env_var(mini_env->array[i]->content, 0);
-		free(mini_env->array[i]);
+		free_env_var(shell_env->array[i]->content, 0);
+		free(shell_env->array[i]);
 		++i;
 	}
-	free(mini_env->array);
-	mini_env = NULL;
+	free(shell_env->array);
+	shell_env = NULL;
 }
 
 static int	shell_main(char *arg_cmd)
@@ -61,6 +61,7 @@ static int	shell_main(char *arg_cmd)
 	char		*line;
 	int			ret_status;
 
+	(void)ret_status;
 	while (1337)
 	{
 		g_errno = EXIT_SUCCESS;
@@ -72,6 +73,8 @@ static int	shell_main(char *arg_cmd)
 			expansion(commands);
 			ret_status = exec_commands(commands);
 		}
+		ft_vector_free(commands, TRUE, del_command);
+		commands = NULL;
 		if (arg_cmd != NULL)
 			return (g_errno);
 	}
@@ -80,7 +83,7 @@ static int	shell_main(char *arg_cmd)
 
 int			main(int ac, char *av[], char *envp[])
 {
-	t_vector	mini_env;
+	t_vector	shell_env;
 	int			exit_value;
 
 	exit_value = 1;
@@ -92,6 +95,6 @@ int			main(int ac, char *av[], char *envp[])
 		exit_value = shell_main(NULL);
 	if (exit_value != 0)
 		ft_printf(2, "Error\nusage: ./21sh [-c command]\n");
-	free_mini_env(&mini_env);
+	free_shell_env(&shell_env);
 	return (exit_value);
 }
