@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_simple_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 09:28:18 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:12:08 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,37 @@ static char		**tokens_to_strings_array(t_vector *tokens)
 	while (i < tokens->length)
 	{
 		tk = (t_token*)tokens->array[i]->content;
-		array[i] = (char*)tk->data;
+		array[i] = ft_strdup((char*)tk->data);
 		++i;
 	}
 	return (array);
 }
 
+int				run_executable(char **args, t_bool run_in_child)
+{
+	char	**envp;
+	char	*exe_path;
+	int		exit_status;
+
+	exe_path = get_executable_pathname(args[0]);
+	if (exe_path == NULL)
+		return (-1);
+	envp = shell_env_to_envp(g_shell_env);
+	if (run_in_child == FALSE || fork() == 0)
+	{
+		execve(exe_path, args, envp);
+		return (EUNK);
+	}
+	else
+		wait(&exit_status);
+	ft_free_strings_array(envp);
+	free(exe_path);
+	return (exit_status);
+}
+
 int				exec_simple_command(t_vector *tokens, t_bool run_in_child)
 {
-	char	*exe_path;
 	char	**args;
-	char	**envp;
 	int		exit_status;
 
 	remove_quotes(tokens);
@@ -44,17 +64,9 @@ int				exec_simple_command(t_vector *tokens, t_bool run_in_child)
 		return (EXIT_SUCCESS);
 	args = tokens_to_strings_array(tokens);
 	if (is_built_in(args[0]))
-		return (run_built_in(args, ft_strings_array_length(args + 1)));
-	exe_path = get_executable_pathname(tokens->array[0]->content);
-	if (exe_path == NULL)
-		return (g_errno);
-	envp = shell_env_to_envp(g_shell_env);
-	if (run_in_child == FALSE || fork() == 0)
-	{
-		execve(exe_path, args, envp);
-		return (EUNK);
-	}
+		exit_status = run_built_in(args, ft_strings_array_length(args + 1));
 	else
-		wait(&exit_status);
+		exit_status = run_executable(args, run_in_child);
+	ft_free_strings_array(args);
 	return (exit_status);
 }

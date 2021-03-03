@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_executable_pathname.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 09:27:58 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 09:28:31 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/02 10:43:05 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ char			*search_executable_in_path(char *cmd)
 	char	*exe_path;
 	char	*path_env_var;
 	char	**path_dirs;
+	char	**path_dirs_tmp;
 
 	g_errno = ECMDNOTFOUND;
 	if ((path_env_var = env_get("PATH")) == NULL)
 		return (NULL);
 	path_dirs = ft_strsplit(path_env_var, ':');
+	path_dirs_tmp = path_dirs;
 	exe_path = NULL;
 	while (*path_dirs)
 	{
@@ -51,29 +53,31 @@ char			*search_executable_in_path(char *cmd)
 		if (check_exec_pathname_errors(exe_path, 0) == EXIT_SUCCESS)
 		{
 			g_errno = 0;
-			return (exe_path);
+			break ;
 		}
 		ft_strdel(&exe_path);
 		++path_dirs;
 	}
-	return (NULL);
+	ft_free_strings_array(path_dirs_tmp);
+	free(path_env_var);
+	return (exe_path);
 }
 
-char			*get_executable_pathname(t_token *cmd)
+char			*get_executable_pathname(char *str)
 {
 	char *exe_path;
 
-	if (ft_strchr((char*)cmd->data, '/'))
+	if (ft_strchr(str, '/'))
 	{
-		if (check_exec_pathname_errors((char*)cmd->data, 1) != EXIT_SUCCESS)
+		if (check_exec_pathname_errors(str, 1) != EXIT_SUCCESS)
 		{
-			ft_perror(cmd->data, NULL, FALSE);
+			ft_perror(str, NULL, FALSE);
 			return (NULL);
 		}
-		return (ft_strdup((char*)cmd->data));
+		return (ft_strdup(str));
 	}
-	exe_path = search_executable_in_path(cmd->data);
+	exe_path = search_executable_in_path(str);
 	if (exe_path == NULL)
-		ft_perror(cmd->data, NULL, FALSE);
+		ft_perror(str, NULL, FALSE);
 	return (exe_path);
 }

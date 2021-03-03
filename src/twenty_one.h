@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   twenty_one.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:51:09 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 19:13:39 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/02 20:20:43 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 extern t_vector	*g_shell_env;
 
-void	print_tokens(t_vector *tokens);
+void	del_command(void *content, size_t content_size);
+void	del_token(void *content, size_t content_size);
 
 #endif

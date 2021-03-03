@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_sequence.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:26:18 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/03 15:53:53 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ int			exec_pipe_sequence(t_vector *tokens)
 	while (wait(&exit_status) != -1)
 		;
 	free_pipes_array(pipes, commands.length - 1);
+	ft_vector_free(&commands, FALSE, del_command);
 	return (exit_status);
 }

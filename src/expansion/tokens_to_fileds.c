@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_to_fileds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 17:34:20 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:27:25 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/03 08:38:26 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,6 @@ static void	split_words(t_vector *words, char *str)
 	}
 }
 
-static void	token_del(void *content, size_t content_size)
-{
-	(void)content_size;
-	free(content);
-}
-
 void		tokens_to_fileds(t_vector *tokens, size_t *index)
 {
 	t_token		tk;
@@ -84,15 +78,22 @@ void		tokens_to_fileds(t_vector *tokens, size_t *index)
 	split_words(&words, tk.data);
 	if (words.length > 1)
 	{
-		ft_vector_remove_at(tokens, *index, token_del);
+		ft_vector_remove_at(tokens, *index, del_token);
 		while (words.length > 0)
 		{
 			tk.data = *((char**)words.array[words.length - 1]->content);
 			tk.type = WORD;
 			ft_vector_add_at(tokens, *index, &tk, sizeof(t_token));
+			free(words.array[words.length - 1]->content);
 			free(words.array[words.length - 1]);
 			--(words.length);
 		}
+	}
+	else
+	{
+		free(*((char**)words.array[0]->content));
+		free(words.array[0]->content);
+		free(words.array[0]);
 	}
 	free(words.array);
 }
