@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_fucntions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 10:45:54 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/03 16:03:11 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/04 12:01:02 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,16 @@ void	del_command(void *content, size_t content_size)
 	(void)content_size;
 	cmd = (t_command*)content;
 	ft_vector_free(cmd->tokens, TRUE, del_token);
+	free(content);
+}
+
+void	del_command_without_tokens(void *content, size_t content_size)
+{
+	t_command	*cmd;
+
+	(void)content_size;
+	cmd = (t_command*)content;
+	free(cmd->tokens->array);
+	free(cmd->tokens);
 	free(content);
 }

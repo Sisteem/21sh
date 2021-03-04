@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_sequence.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/03 15:53:53 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/04 12:05:15 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,13 @@ int			exec_pipe_sequence(t_vector *tokens)
 		cmd_fds.out = i == commands.length - 1 ? -1 : pipes[i][1];
 		if (fork() == 0)
 			return (exec_pipe_command(commands.array[i]->content, &cmd_fds));
-		close(cmd_fds.out);
+		if (cmd_fds.out != -1)
+			close(cmd_fds.out);
 		++i;
 	}
 	while (wait(&exit_status) != -1)
 		;
 	free_pipes_array(pipes, commands.length - 1);
-	ft_vector_free(&commands, FALSE, del_command);
+	ft_vector_free(&commands, FALSE, del_command_without_tokens);
 	return (exit_status);
 }
