@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 21:47:26 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/12 10:02:54 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/04 12:07:11 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ t_vector	*construct_commands(t_vector *tokens)
 		c.token = (t_token*)tokens->array[c.i]->content;
 		if (c.token->type == SEMI)
 		{
-			if (c.i == c.j)
-				c.i = ++c.j;
-			else
+			if (c.i != c.j)
 				add_command(tokens, &c);
+			ft_vector_remove_at(tokens, c.i, del_token);
 			continue ;
 		}
 		else if (c.token->type == PIPELINE)
