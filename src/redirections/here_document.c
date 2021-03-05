@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/01 09:48:29 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/05 19:47:04 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,45 +31,55 @@ static char	*remove_leading_tabs(char *str)
 	return (result);
 }
 
-static char	*read_buffer(char *delimiter, t_bool remove_tabs)
+static int	read_buffer(char **buffer, char *delimiter, t_bool remove_tabs)
 {
 	char	*line;
-	char	*buf;
+	int		ret;
 
-	buf = ft_strdup("");
+	*buffer = ft_strdup("");
 	while (1)
 	{
-		ft_printf(1, "> ");
-		if (get_next_line(0, &line) == -1)
-			return (buf);
+		if ((ret = readline_21sh(&line, PS2)) == ERROR)
+			exit(1);
+		if (ret == EXIT)
+			break ;
+		if (ret == INTERRUPTED)
+		{
+			free(*buffer);
+			return (EXIT_FAILURE);
+		}
 		if (remove_tabs)
 			line = remove_leading_tabs(line);
-		if (line && ft_strcmp(line, delimiter) != 0)
-		{
-			buf = ft_strjoin_free(buf, line, 1, 1);
-			buf = ft_strjoin_free(buf, "\n", 1, 0);
-		}
-		else
-			return (buf);
+		if (ft_strequ(line, delimiter))
+			break ;
+		*buffer = ft_strjoin_free(*buffer, line, 1, 1);
+		*buffer = ft_strjoin_free(*buffer, "\n", 1, 0);
 	}
+	return (EXIT_SUCCESS);
 }
 
-void		here_document(int fd, char *delimeter, t_bool remove_tabs)
+int		here_document(int fd, char *delimeter, t_bool remove_tabs)
 {
-	int pipe_fd[2];
+	char	*buffer;
+	int		pipe_fd[2];
 
 	if (fd == -1)
 		fd = STDIN_FILENO;
 	if (pipe(pipe_fd) == -1)
 	{
 		g_errno = EUNK;
-		ft_perror(NULL, NULL, TRUE);
+		ft_perror(NULL, NULL, FALSE);
+		return (-1);
 	}
-	ft_printf(pipe_fd[1], read_buffer(delimeter, remove_tabs));
+	if (read_buffer(&buffer, delimeter, remove_tabs) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	ft_printf(pipe_fd[1], buffer);
 	close(pipe_fd[1]);
 	if (dup2(pipe_fd[0], fd) == -1)
 	{
 		g_errno = EREDIRECTION;
-		ft_perror(NULL, NULL, TRUE);
+		ft_perror(NULL, NULL, FALSE);
+		return (-1);
 	}
+	return (EXIT_SUCCESS);
 }

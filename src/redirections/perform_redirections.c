@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 18:51:01 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/05 19:34:51 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	handle_redirections(int io_number, t_token_type tk_type, void *word)
 	else if (tk_type == LESS)
 		err = redirect_input(word, io_number);
 	else if (tk_type == DLESS || tk_type == DLESSDASH)
-		here_document(io_number, word, tk_type == DLESSDASH);
+		err = here_document(io_number, word, tk_type == DLESSDASH);
 	if (err == -1)
 		ft_perror(g_errno != EREDIRECTION ? word : NULL, NULL, FALSE);
 	return (err);
