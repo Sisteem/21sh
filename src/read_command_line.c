@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 18:17:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 17:43:56 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/05 19:12:15 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	check_quotes_backslashes(char *str)
 	return (valid && !backslash);
 }
 
-int			read_cmd_line(char **cmd)
+int			read_command_line(char **cmd)
 {
 	char	*prompt;
 	char	*line;
@@ -74,8 +74,6 @@ int			read_cmd_line(char **cmd)
 
 	if (cmd == NULL)
 		return (ERROR);
-	if (*cmd != NULL)
-		return (LINE);
 	*cmd = ft_strdup("");
 	prompt = PS1;
 	while (1)

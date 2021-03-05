@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 17:52:17 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/05 19:14:42 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,37 @@ static void	free_shell_env(t_vector *shell_env)
 	shell_env = NULL;
 }
 
+static int	get_command(char **cmd)
+{
+	int ret;
+
+	if (*cmd != NULL)
+		return (LINE);
+	ret = read_command_line(cmd);
+	if (ret == EXIT)
+	{
+		ft_printf(1, "exit\n");
+		exit(0);
+	}
+	if (ret == ERROR)
+		exit(1);
+	return (ret);
+}
+
 static int	shell_main(char *arg_cmd)
 {
 	t_vector	*commands;
-	char		*line;
+	char		*cmd;
 	int			ret_status;
 
-	(void)ret_status;
 	while (1337)
 	{
 		g_errno = EXIT_SUCCESS;
-		line = arg_cmd;
-		read_cmd_line(&line);
-		commands = parse_command(line);
-		ft_strdel(&line);
+		cmd = arg_cmd;
+		if (get_command(&cmd) == INTERRUPTED)
+			continue ;
+		commands = parse_command(cmd);
+		ft_strdel(&cmd);
 		if (commands != NULL)
 		{
 			expansion(commands);

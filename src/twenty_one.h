@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:51:09 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 17:42:56 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/05 19:12:29 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 extern t_vector	*g_shell_env;
 
-int		read_cmd_line(char **cmd);
+int		read_command_line(char **cmd);
 void	del_command(void *content, size_t content_size);
 void	del_token(void *content, size_t content_size);
 void	del_command_without_tokens(void *content, size_t content_size);
