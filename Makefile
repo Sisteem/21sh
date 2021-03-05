@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+         #
+#    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/02 20:21:11 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/03/05 17:44:57 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 # name
 NAME = 21sh
 LIBFT = libft/libft.a
-
+READLINE_LIB = readline/readline.a
 # compilation variables
 CFLAGS = -Wall -Wextra -Werror -g
 CC = gcc
@@ -25,7 +25,7 @@ CC = gcc
 # objects																	   #
 21sh_INC = src/twenty_one.h src/parser/parser.h src/expansion/expansion.h \
 	src/typedefs.h src/errors/errors.h src/redirections/redirections.h
-21sh = main.o delete_fucntions.o \
+21sh = main.o delete_fucntions.o read_cmd_line.o \
 	parser/parser.o parser/tokenization.o parser/tokenization_helpers.o \
 	parser/construct_commands.o parser/syntax_analys.o parser/util.o \
 	parser/remove_quotes.o \
@@ -64,12 +64,17 @@ RESET	= \033[0m
 # **************************************************************************** #
 all: $(NAME)
 
-$(NAME): $(21sh_OBJS) $(LIBFT)
-	@$(CC) -o $(NAME) $(21sh_OBJS) $(LIBFT)
+$(NAME): $(21sh_OBJS) $(LIBFT) $(READLINE_LIB)
+	@$(CC) -o $(NAME) $(21sh_OBJS) $(LIBFT) $(READLINE_LIB)
 	@echo "$(GREEN)program$(RESET) $(NAME): $(GREEN)UPDATED!$(RESET)";
 
 $(LIBFT): force
 	@make -C libft/
+
+force:
+
+$(READLINE_LIB): force
+	@make -C readline/
 
 force:
 

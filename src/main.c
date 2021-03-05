@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/03 15:54:01 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/05 17:52:17 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,6 @@ t_vector	*g_shell_env;
 void		handler(int unused)
 {
 	(void)unused;
-}
-
-char		*read_cmd(void)
-{
-	char *cmd;
-	char *tmp;
-
-	ft_printf(1, "$ ");
-	if (get_next_line(0, &cmd) < 0)
-		exit(1);
-	if (cmd == NULL)
-	{
-		ft_printf(1, "exit\n");
-		exit(0);
-	}
-	if (*cmd == '\0')
-		return (cmd);
-	tmp = cmd;
-	cmd = ft_strtrim(cmd);
-	free(tmp);
-	return (cmd);
 }
 
 static void	free_shell_env(t_vector *shell_env)
@@ -65,7 +44,8 @@ static int	shell_main(char *arg_cmd)
 	while (1337)
 	{
 		g_errno = EXIT_SUCCESS;
-		line = arg_cmd ? ft_strdup(arg_cmd) : read_cmd();
+		line = arg_cmd;
+		read_cmd_line(&line);
 		commands = parse_command(line);
 		ft_strdel(&line);
 		if (commands != NULL)

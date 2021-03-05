@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:51:09 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/04 12:03:23 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/05 17:42:56 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 
 # include "../libft/libft.h"
+# include "../readline/readline.h"
 # include "typedefs.h"
 # include "errors/errors.h"
 # include "parser/parser.h"
@@ -29,9 +30,12 @@
 # include "built_in/built_in.h"
 
 # define PATH_MAX 1024
+# define PS1 "$ "
+# define PS2 "> "
 
 extern t_vector	*g_shell_env;
 
+int		read_cmd_line(char **cmd);
 void	del_command(void *content, size_t content_size);
 void	del_token(void *content, size_t content_size);
 void	del_command_without_tokens(void *content, size_t content_size);
