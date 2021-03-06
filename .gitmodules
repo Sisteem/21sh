@@ -3,4 +3,4 @@
 	url = https://github.com/YoussefLagtab/libft.git
 [submodule "readline"]
 	path = readline
-	url = git@github.com:Sisteem/readline.git
+	url = https://github.com/Sisteem/readline.git
