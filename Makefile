@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+         #
+#    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/07 11:08:34 by mel-idri         ###   ########.fr        #
+#    Updated: 2021/03/07 15:54:44 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@
 # name
 NAME = 21sh
 LIBFT = libft/libft.a
+LIBFT_OPT = "LIBFT_EXIT_ON_ALLOC_FAIL=true"
 READLINE_LIB = readline/readline.a
+
 # compilation variables
 CFLAGS = -Wall -Wextra -Werror -g
 CC = gcc
@@ -69,7 +71,7 @@ $(NAME): $(21sh_OBJS) $(LIBFT) $(READLINE_LIB)
 	@echo "$(GREEN)program$(RESET) $(NAME): $(GREEN)UPDATED!$(RESET)";
 
 $(LIBFT): force
-	@make -C libft/
+	@env $(LIBFT_OPT) make -C libft/
 
 force:
 
