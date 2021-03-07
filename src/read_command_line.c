@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd_line.c                                    :+:      :+:    :+:   */
+/*   read_command_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 18:17:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 19:12:15 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/07 14:50:03 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			read_command_line(char **cmd)
 		remove_ending_backslash(cmd);
 		prompt = PS2;
 	}
-	if ((*cmd)[0] != ' ')
+	if ((*cmd)[0] != ' ' && (*cmd)[0] != '\0')
 		add_hist_entry(*cmd);
 	*cmd = trim_spaces(*cmd);
 	return (LINE);
