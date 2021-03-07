@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
+#    By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/05 19:13:55 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/03/07 11:08:34 by mel-idri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ RESET	= \033[0m
 all: $(NAME)
 
 $(NAME): $(21sh_OBJS) $(LIBFT) $(READLINE_LIB)
-	@$(CC) -o $(NAME) $(21sh_OBJS) $(LIBFT) $(READLINE_LIB)
+	@$(CC) -o $(NAME) $(21sh_OBJS) $(LIBFT) $(READLINE_LIB) -ltermcap
 	@echo "$(GREEN)program$(RESET) $(NAME): $(GREEN)UPDATED!$(RESET)";
 
 $(LIBFT): force
@@ -90,7 +90,8 @@ $(OBJS_DIR):
 	fi;
 
 clean:
-	@make fclean -C libft/
+	@make clean -C libft/
+	@make clean -C readline/
 	@if [ -d $(OBJS_DIR) ]; then \
 		echo "$(RED)OBJ$(RESET) minishell objs: $(RED)REMOVED!$(RESET)"; \
 		rm -rf $(OBJS_DIR); \
@@ -98,6 +99,7 @@ clean:
 
 fclean: clean
 	@make fclean -C libft/
+	@make fclean -C readline/
 	@if [ -f $(NAME) ]; then \
 		echo "$(RED)program$(RESET) $(NAME): $(RED)REMOVED!$(RESET)"; \
 		rm -f $(NAME); \
