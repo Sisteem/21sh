@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_to_fileds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 17:34:20 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/03 08:38:26 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/08 11:09:26 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		tokens_to_fileds(t_vector *tokens, size_t *index)
 
 	tk = *(t_token*)tokens->array[*index]->content;
 	split_words(&words, tk.data);
-	if (words.length > 1)
+	if (words.length >= 1)
 	{
 		ft_vector_remove_at(tokens, *index, del_token);
 		while (words.length > 0)
@@ -88,12 +88,6 @@ void		tokens_to_fileds(t_vector *tokens, size_t *index)
 			free(words.array[words.length - 1]);
 			--(words.length);
 		}
-	}
-	else
-	{
-		free(*((char**)words.array[0]->content));
-		free(words.array[0]->content);
-		free(words.array[0]);
 	}
 	free(words.array);
 }
