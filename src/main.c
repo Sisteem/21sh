@@ -88,9 +88,9 @@ int			main(int ac, char *av[], char *envp[])
 	g_shell_env = env_init(envp);
 	if (ac == 3 && ft_strcmp(av[1], "-c") == 0)
 		exit_value = shell_main(av[2]);
-	if (ac == 1)
+	else if (ac == 1)
 		exit_value = shell_main(NULL);
-	if (exit_value != 0)
+	else
 		ft_printf(2, "Error\nusage: ./21sh [-c command]\n");
 	free_shell_env(&shell_env);
 	return (exit_value);
