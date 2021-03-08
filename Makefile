@@ -6,7 +6,7 @@
 #    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/07 15:54:44 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/03/08 11:28:09 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 # name
 NAME = 21sh
 LIBFT = libft/libft.a
-LIBFT_OPT = "LIBFT_EXIT_ON_ALLOC_FAIL=true"
+LIBFT_OPT = "LIBFT_EXIT_ON_ALLOC_FAIL=1"
 READLINE_LIB = readline/readline.a
 
 # compilation variables
