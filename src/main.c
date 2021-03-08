@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 19:14:42 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/08 11:07:48 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	shell_main(char *arg_cmd)
 	while (1337)
 	{
 		g_errno = EXIT_SUCCESS;
-		cmd = arg_cmd;
+		cmd = ft_strdup(arg_cmd);
 		if (get_command(&cmd) == INTERRUPTED)
 			continue ;
 		commands = parse_command(cmd);
