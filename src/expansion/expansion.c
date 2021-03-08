@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:33:44 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/18 09:24:32 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/08 11:12:49 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	expand_command(t_vector *tokens)
 	t_token			*tk;
 	char			*word;
 	t_token_type	old_token_type;
+	t_token_type	current_token_type;
 	size_t			i;
 
 	i = 0;
@@ -24,7 +25,8 @@ static void	expand_command(t_vector *tokens)
 	while (i < tokens->length)
 	{
 		tk = (t_token*)tokens->array[i]->content;
-		if (tk->type == WORD &&
+		current_token_type = tk->type;
+		if (current_token_type == WORD &&
 			old_token_type != DLESS && old_token_type != DLESSDASH)
 		{
 			word = expand_word(tk->data);
@@ -33,7 +35,7 @@ static void	expand_command(t_vector *tokens)
 			free(word);
 			tokens_to_fileds(tokens, &i);
 		}
-		old_token_type = tk->type;
+		old_token_type = current_token_type;
 		++i;
 	}
 }
