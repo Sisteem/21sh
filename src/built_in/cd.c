@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:24:35 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/28 11:10:48 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/08 12:43:00 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int					cd(char **args, size_t args_len)
 	if (err == 0)
 		err = change_dir(path);
 	if (err)
-		return (show_error_msg(path, err));
+		show_error_msg(path, err);
 	free(path);
-	return (0);
+	return (err);
 }
