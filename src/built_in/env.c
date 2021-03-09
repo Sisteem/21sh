@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:58:23 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/28 11:12:37 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:32:09 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			env(char **args, size_t args_len)
 
 	usage = "usage: env\n";
 	(void)args;
-	if (args_len != 1)
+	if (args_len != 0)
 	{
 		ft_printf(2, "minishell: env: wrong number of arguments\n%s", usage);
 		return (1);
