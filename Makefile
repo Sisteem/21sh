@@ -6,7 +6,7 @@
 #    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/08 11:28:09 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/03/10 10:13:09 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ CC = gcc
 21sh = main.o delete_fucntions.o read_command_line.o \
 	parser/parser.o parser/tokenization.o parser/tokenization_helpers.o \
 	parser/construct_commands.o parser/syntax_analys.o parser/util.o \
-	parser/remove_quotes.o \
+	parser/remove_quotes.o parser/dynamic_str.o \
 	expansion/expansion.o expansion/expand_word.o expansion/tilde_expansion.o \
 	expansion/env_var_expansion.o expansion/tokens_to_fileds.o \
 	execution/exec_simple_command.o execution/exec_commands.o \

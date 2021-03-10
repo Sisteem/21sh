@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 10:00:01 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 16:41:25 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 10:12:37 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static t_token_type	fill_word(char **str, t_tokenization *t)
 		else if (t->quote == 0)
 			t->quote = quote;
 		last_char = **str;
-		t->token[t->t_index] = **str;
-		++(t->t_index);
+		dynamic_str_push(t->token, **str);
 		++(*str);
 	}
 	return (WORD);
@@ -42,8 +41,7 @@ static t_token_type	fill_number(char **str, t_tokenization *t)
 {
 	while (**str && is_number(**str, 0))
 	{
-		t->token[t->t_index] = **str;
-		++(t->t_index);
+		dynamic_str_push(t->token, **str);
 		++(*str);
 	}
 	if (**str == '>' || **str == '<' ||
@@ -62,15 +60,15 @@ static void			add_token_to_list(t_tokenization *t)
 	if (t->token_type == WORD)
 		t->token_type = NONE;
 	if (token.type == WORD)
-		token.data = ft_strsub(t->token, 0, t->t_index);
+		token.data = ft_strsub(t->token->data, 0, t->token->length);
 	else if (token.type == IO_NUMBER)
 	{
-		t->token[t->t_index] = '\0';
-		io_number = ft_atoi(t->token);
+		dynamic_str_push(t->token, '\0');
+		io_number = ft_atoi(t->token->data);
 		token.data = ft_malloc(sizeof(int));
 		ft_memcpy(token.data, (void *)&io_number, sizeof(int));
 	}
-	t->t_index = 0;
+	t->token->length = 0;
 	ft_vector_add(t->tokens_list, &token, sizeof(t_token));
 }
 
@@ -80,6 +78,7 @@ t_vector			*tokenization(char *args_line)
 
 	ft_bzero(&t, sizeof(t_tokenization));
 	t.tokens_list = ft_vector_new();
+	t.token = dynamic_str_new();
 	while (*args_line)
 	{
 		if (is_number(*args_line, 0))
@@ -98,5 +97,6 @@ t_vector			*tokenization(char *args_line)
 		while (ft_isspace(*args_line))
 			++args_line;
 	}
+	dynamic_str_free(t.token);
 	return (t.tokens_list);
 }

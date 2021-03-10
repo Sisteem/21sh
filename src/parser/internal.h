@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 09:53:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 09:10:40 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 10:12:29 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,16 @@
 ** Type definitions
 */
 
+typedef struct	s_dynamic_str
+{
+	char	*data;
+	size_t	length;
+	size_t	capacity;
+}				t_dynamic_str;
+
 typedef struct	s_tokenization
 {
-	char			token[4096];
+	t_dynamic_str	*token;
 	t_vector		*tokens_list;
 	int				t_index;
 	t_token_type	token_type;
@@ -57,5 +64,8 @@ int				is_word(char c, int quote);
 int				is_number(char c, int quote);
 int				is_operator(char c, int quote);
 t_token_type	fill_operator(char **str, t_tokenization *t);
+t_dynamic_str	*dynamic_str_new(void);
+void			dynamic_str_free(t_dynamic_str *dyn_str);
+void			dynamic_str_push(t_dynamic_str *dyn_str, char c);
 
 #endif
