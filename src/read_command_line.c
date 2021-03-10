@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 18:17:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/07 14:50:03 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:48:57 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ int			read_command_line(char **cmd)
 	while (1)
 	{
 		if ((ret = readline_21sh(&line, prompt)) != LINE)
+		{
+			ft_memdel((void**)cmd);
 			return (ret);
+		}
 		*cmd = ft_strjoin_free(*cmd, line, 1, 1);
 		if (check_quotes_backslashes(*cmd))
 			break ;
