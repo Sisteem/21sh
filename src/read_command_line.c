@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   read_command_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 18:17:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/09 16:56:15 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:28:18 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one.h"
+
+static int	is_quote(char c)
+{
+	if (c == DOUBLE_QUOTE || c == SINGLE_QUOTE)
+		return (c);
+	return (0);
+}
 
 static void	remove_ending_backslash(char **cmd)
 {
@@ -50,14 +57,14 @@ static int	check_quotes_backslashes(char *str)
 	backslash = 0;
 	while (str[i])
 	{
-		if (quote && quote == quote_type(str[i]) && !backslash)
+		if (quote && quote == is_quote(str[i]) && !backslash)
 		{
 			quote = 0;
 			valid = 1;
 		}
-		else if (!quote && quote_type(str[i]) && !backslash)
+		else if (!quote && is_quote(str[i]) && !backslash)
 		{
-			quote = quote_type(str[i]);
+			quote = is_quote(str[i]);
 			valid = 0;
 		}
 		backslash = !backslash && str[i] == BACK_SLASH && quote != SINGLE_QUOTE;
