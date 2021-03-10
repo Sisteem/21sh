@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_command_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 18:17:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/09 16:48:57 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:56:15 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	remove_ending_backslash(char **cmd)
 	cmd_len = ft_strlen(*cmd);
 	if ((*cmd)[cmd_len - 1] == BACK_SLASH)
 	{
-		(*cmd)[cmd_len - 1] = '\n';
+		(*cmd)[cmd_len - 1] = '\0';
 		return ;
 	}
 	*cmd = ft_strjoin_free(*cmd, "\n", 1, 0);
