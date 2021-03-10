@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 09:37:15 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/10 10:40:12 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 10:56:08 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void			skip_operator(char **str, t_token_type tk_type)
 		(*str) += 3;
 	else if (tk_type == ANDGREAT || tk_type == DGREAT || tk_type == GREATAND)
 		(*str) += 2;
+	else
+		++(*str);
 }
 
 static t_token_type	get_great_type(char **str, t_tokenization *t)
@@ -55,7 +57,7 @@ static t_token_type	get_great_type(char **str, t_tokenization *t)
 	else
 	{
 		dynamic_str_push(t->token, **str);
-		++str;
+		++(*str);
 		return (WORD);
 	}
 	skip_operator(str, tk_type);
