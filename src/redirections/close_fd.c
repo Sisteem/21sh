@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_output.c                                     :+:      :+:    :+:   */
+/*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 15:05:47 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/28 11:27:47 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:16:51 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-void	close_output(int io_number)
+void	close_fd(int io_number, int redi_type)
 {
 	if (io_number == -1)
-		io_number = 1;
+	{
+		if (redi_type == REDI_OUT)
+			io_number = STDOUT_FILENO;
+		if (redi_type == REDI_IN)
+			io_number = STDIN_FILENO;
+	}
 	close(io_number);
 }

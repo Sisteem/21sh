@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 19:34:51 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 17:00:10 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	is_redirection(t_token_type type)
 		type == LESS ||
 		type == DLESS ||
 		type == DLESSDASH ||
+		type == LESSAND ||
 		type == GREATAND);
 }
 
@@ -49,10 +50,10 @@ static int	handle_redirections(int io_number, t_token_type tk_type, void *word)
 	{
 		err = redirect_output(word, STDOUT_FILENO, tk_type == ANDDGREAT);
 		if (err == EXIT_SUCCESS)
-			err = fd_aggregation(STDOUT_FILENO, STDERR_FILENO);
+			err = dup2(STDOUT_FILENO, STDERR_FILENO);
 	}
-	else if (tk_type == GREATAND)
-		err = fd_aggregation(ft_atoi(word), io_number);
+	else if (tk_type == GREATAND || tk_type == LESSAND)
+		err = fd_aggregation(io_number, tk_type, word);
 	else if (tk_type == LESS)
 		err = redirect_input(word, io_number);
 	else if (tk_type == DLESS || tk_type == DLESSDASH)
@@ -82,8 +83,8 @@ int			perform_redirections(t_vector *tokens)
 			if (handle_redirections(io_number, tk->type, tmp_tk->data) == -1)
 				return (-1);
 		}
-		else if (tk->type == GREATANDDASH)
-			close_output(io_number);
+		else if (tk->type == GREATANDDASH || tk->type == LESSANDDASH)
+			close_fd(io_number, tk->type == GREATANDDASH ? REDI_OUT : REDI_IN);
 		++i;
 	}
 	remove_redirections_tokens(tokens);
