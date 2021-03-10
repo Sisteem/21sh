@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/04 12:05:15 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 09:45:28 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	free_pipes_array(int **pipes, size_t count)
 
 static int	exec_pipe_command(t_command *cmd, t_command_fds *cmd_fds)
 {
+	int exit_status;
+
 	if (cmd_fds->in != -1)
 		if (dup2(cmd_fds->in, STDIN_FILENO) == -1)
 		{
@@ -61,7 +63,8 @@ static int	exec_pipe_command(t_command *cmd, t_command_fds *cmd_fds)
 			g_errno = EREDIRECTION;
 			ft_perror(NULL, NULL, TRUE);
 		}
-	return (exec_simple_command(cmd->tokens, FALSE));
+	exit_status = exec_simple_command(cmd->tokens, FALSE);
+	exit(exit_status);
 }
 
 int			exec_pipe_sequence(t_vector *tokens)
