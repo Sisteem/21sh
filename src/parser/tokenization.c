@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 10:00:01 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/10 10:54:03 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:33:36 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_vector			*tokenization(char *args_line)
 		if (is_operator(*args_line, 0))
 			if ((t.token_type = fill_operator(&args_line, &t)) != WORD)
 				add_token_to_list(&t);
-		if (t.token_type == WORD || is_word(*args_line, 0))
+		if (t.token_type == WORD || (*args_line && is_word(*args_line, 0)))
 		{
 			t.token_type = fill_word(&args_line, &t);
 			add_token_to_list(&t);

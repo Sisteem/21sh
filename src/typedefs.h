@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedefs.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:11:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/03 15:56:47 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:52:24 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef enum	e_token_type
 	DLESS,
 	DLESSDASH,
 	GREATAND,
+	LESSAND,
+	LESSANDDASH,
 	GREATANDDASH,
 }				t_token_type;
 
