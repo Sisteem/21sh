@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/08 11:07:48 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/10 10:15:42 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_vector	*g_shell_env;
 void		handler(int unused)
 {
 	(void)unused;
+	ft_printf(1, "\n");
 }
 
 static void	free_shell_env(t_vector *shell_env)
