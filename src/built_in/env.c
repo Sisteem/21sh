@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:58:23 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/09 16:32:09 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 08:50:30 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			env_set(char **args, size_t args_len)
 		ft_printf(2, "minishell: setenv: wrong number of arguments\n%s", usage);
 		return (1);
 	}
-	if (!is_valid_name(args[1]))
+	if (!is_valid_name(args[0]))
 	{
 		ft_printf(2, "minishell: setenv: not valid name\n%s", usage);
 		return (1);
