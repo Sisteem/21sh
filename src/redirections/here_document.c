@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_document.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/11 17:53:32 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 18:28:30 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		here_document(int fd, char *delimeter, t_bool remove_tabs)
 		ft_perror(NULL, NULL, FALSE);
 		return (-1);
 	}
-	*buffer = ft_strdup("");
+	buffer = ft_strdup("");
 	if (read_buffer(&buffer, delimeter, remove_tabs) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	ft_printf(pipe_fd[1], buffer);
