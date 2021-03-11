@@ -6,7 +6,7 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:58:23 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/11 08:50:30 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/11 09:27:18 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			env_set(char **args, size_t args_len)
 		ft_printf(2, "minishell: setenv: not valid name\n%s", usage);
 		return (1);
 	}
-	env_remove(args[1]);
+	env_remove(args[0]);
 	env_add(args[0], args[1]);
 	return (0);
 }
