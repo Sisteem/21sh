@@ -6,7 +6,7 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/11 18:28:30 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/11 18:29:41 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	read_buffer(char **buffer, char *delimiter, t_bool remove_tabs)
 	return (EXIT_SUCCESS);
 }
 
-int		here_document(int fd, char *delimeter, t_bool remove_tabs)
+int			here_document(int fd, char *delimeter, t_bool remove_tabs)
 {
 	char	*buffer;
 	int		pipe_fd[2];
