@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization_helpers.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 09:37:15 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/10 16:31:05 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 18:37:48 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_token_type	get_less_type(char **str)
 {
-	if (ft_strncmp(*str, "<<-", 2) == 0)
+	if (ft_strncmp(*str, "<<-", 3) == 0)
 	{
 		(*str) += 3;
 		return (DLESSDASH);
