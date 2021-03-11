@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 19:34:41 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 11:44:40 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 16:37:26 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*expand_tilde(char *word, char *result, size_t *end, size_t *start)
 		tilde = ft_strdup("");
 	str = ft_strsub(word, *start, *end - *start);
 	str = ft_strjoin_free(result, str, 1, 1);
-	str = ft_strjoin_free(str, tilde, 1, 0);
+	str = ft_strjoin_free(str, tilde, 1, 1);
 	*start = ++(*end);
 	return (str);
 }
