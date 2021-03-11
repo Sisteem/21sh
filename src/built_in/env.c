@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:58:23 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/11 09:27:18 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:24:33 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int			env_set(char **args, size_t args_len)
 	usage = "usage: setenv name value\nname: [a-zA-Z_][a-zA-Z0-9_]*\n";
 	if (args_len != 2)
 	{
-		ft_printf(2, "minishell: setenv: wrong number of arguments\n%s", usage);
+		ft_printf(2, "21sh: setenv: wrong number of arguments\n%s", usage);
 		return (1);
 	}
 	if (!is_valid_name(args[0]))
 	{
-		ft_printf(2, "minishell: setenv: not valid name\n%s", usage);
+		ft_printf(2, "21sh: setenv: not valid name\n%s", usage);
 		return (1);
 	}
 	env_remove(args[0]);
@@ -55,7 +55,7 @@ int			env_unset(char **args, size_t args_len)
 	{
 		if (!is_valid_name(*args))
 		{
-			ft_printf(2, "minishell: unsetenv: %s not valid name\n", *args);
+			ft_printf(2, "21sh: unsetenv: %s not valid name\n", *args);
 		}
 		env_remove(*args);
 		++args;
@@ -73,7 +73,7 @@ int			env(char **args, size_t args_len)
 	(void)args;
 	if (args_len != 0)
 	{
-		ft_printf(2, "minishell: env: wrong number of arguments\n%s", usage);
+		ft_printf(2, "21sh: env: wrong number of arguments\n%s", usage);
 		return (1);
 	}
 	i = 0;

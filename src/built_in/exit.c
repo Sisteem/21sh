@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 12:07:00 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/28 11:13:13 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:24:33 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int			exit_shell(char **args, size_t args_len)
 	usage = "usage: exit [number]\n";
 	if (args_len > 0 && !str_is_number(args[0]))
 	{
-		ft_printf(2, "minishell: exit: `%s` numeric argument required\n%s",
+		ft_printf(2, "21sh: exit: `%s` numeric argument required\n%s",
 			args[0], usage);
 		exit(255);
 	}
 	if (args_len > 1)
 	{
-		ft_printf(2, "minishell: exit: too many arguments\n%s", usage);
+		ft_printf(2, "21sh: exit: too many arguments\n%s", usage);
 		return (1);
 	}
 	exit(args_len == 0 ? 0 : ft_atoi(args[0]));

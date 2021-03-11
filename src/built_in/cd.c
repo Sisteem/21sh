@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:24:35 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/08 12:43:00 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:24:33 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int					cd(char **args, size_t args_len)
 
 	if (args_len > 1)
 	{
-		ft_printf(2, "minishell: cd: to many arguments\n");
+		ft_printf(2, "21sh: cd: to many arguments\n");
 		return (1);
 	}
 	err = 0;

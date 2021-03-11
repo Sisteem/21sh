@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+         #
+#    By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/10 16:21:37 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/03/11 14:24:13 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,7 @@ clean:
 	@make clean -C libft/
 	@make clean -C readline/
 	@if [ -d $(OBJS_DIR) ]; then \
-		echo "$(RED)OBJ$(RESET) minishell objs: $(RED)REMOVED!$(RESET)"; \
+		echo "$(RED)OBJ$(RESET) 21sh objs: $(RED)REMOVED!$(RESET)"; \
 		rm -rf $(OBJS_DIR); \
 	fi;
 
