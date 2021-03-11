@@ -6,32 +6,26 @@
 /*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:24:35 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/11 14:24:33 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 16:48:47 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "twenty_one.h"
 
-static t_error		show_error_msg(char *path, t_error err)
+static void			show_error_msg(char *path)
 {
-	if (err == ENOHOME)
-		ft_printf(2, "minisell: cd: HOME not set\n");
-	else if (err == ENOOLPPWD)
-		ft_printf(2, "minisell: cd: OLDPWD not set\n");
-	else if (err == EACCESS)
-		ft_printf(2, "minisell: cd: %s: Acess denied\n", path);
-	else if (err == ENOTFOUND)
-		ft_printf(2, "minisell: cd: %s: No such file or directory\n", path);
-	else if (err == ENOTDIR)
-		ft_printf(2, "minisell: cd: %s: Not a directory\n", path);
-	else if (err == ENAMETOOLONG)
-		ft_printf(2, "minisell: cd: %s: File name too long\n", path);
-	else
-		ft_printf(2, "minisell: cd: %s: An error has occured\n", path);
-	return (err);
+	char *error_prefix;
+
+	error_prefix = "cd";
+	if (g_errno != ENOHOME && g_errno != ENOOLPPWD)
+	{
+		error_prefix = ft_strjoin(error_prefix, ": ");
+		error_prefix = ft_strjoin_free(error_prefix, path, 1, 0);
+	}
+	ft_perror(error_prefix, NULL, FALSE);
 }
 
-static t_error		handle_errors(char *path)
+static void			handle_errors(char *path)
 {
 	struct stat	st;
 	int			err;
@@ -43,26 +37,28 @@ static t_error		handle_errors(char *path)
 	if (stat(path, &st) == -1)
 		err = 1;
 	if (S_ISLNK(st.st_mode) && err == 1)
-		return (EUNK);
-	if (access(path, F_OK) == -1)
-		return (ENOTFOUND);
-	if (access(path, R_OK) == -1)
-		return (EACCESS);
-	if (S_ISDIR(st.st_mode))
-		return (0);
-	return (ENOTDIR);
+		g_errno = EUNK;
+	else if (access(path, F_OK) == -1)
+		g_errno = ENOTFOUND;
+	else if (access(path, R_OK) == -1)
+		g_errno = EACCESS;
+	else if (S_ISDIR(st.st_mode))
+		g_errno = EXIT_SUCCESS;
+	else
+		g_errno = ENOTDIR;
 }
 
-static t_error		change_dir(char *path)
+static void			change_dir(char *path)
 {
 	char	*current_dir;
 	char	*dir_path;
-	t_error	err;
 
 	if ((current_dir = env_get("PWD")) == NULL)
-		current_dir = getcwd(NULL, PATH_MAX);
-	if (current_dir == NULL)
-		return (EUNK);
+		if ((current_dir = getcwd(NULL, PATH_MAX)) == NULL)
+		{
+			g_errno = EUNK;
+			return ;
+		}
 	dir_path = path[0] == '/' ? ft_strdup(path) : join_paths(current_dir, path);
 	if (chdir(dir_path) == 0)
 	{
@@ -70,39 +66,47 @@ static t_error		change_dir(char *path)
 		env_remove("OLDPWD");
 		env_add("OLDPWD", current_dir);
 		env_add("PWD", dir_path);
-		err = 0;
+		g_errno = 0;
 	}
 	else
-		err = handle_errors(dir_path);
+		handle_errors(dir_path);
 	free(current_dir);
 	free(dir_path);
-	return (err);
+}
+
+static char			*get_path(char *str)
+{
+	char *path;
+
+	path = NULL;
+	if (str == NULL)
+		if ((path = env_get("HOME")) == NULL)
+			g_errno = ENOHOME;
+	if (ft_strequ(str, "-"))
+		if ((path = env_get("OLDPWD")) == NULL)
+			g_errno = ENOOLPPWD;
+	if (path == NULL)
+		path = ft_strdup(str);
+	return (path);
 }
 
 int					cd(char **args, size_t args_len)
 {
 	char	*path;
-	t_error	err;
 
+	g_errno = EXIT_SUCCESS;
 	if (args_len > 1)
 	{
 		ft_printf(2, "21sh: cd: to many arguments\n");
-		return (1);
+		return (EUNK);
 	}
-	err = 0;
-	path = ft_strdup(args[0]);
-	if (path == NULL)
-		if ((path = env_get("HOME")) == NULL)
-			err = ENOHOME;
-	if (ft_strequ(path, "-"))
-		if ((path = env_get("OLDPWD")) == NULL)
-			err = ENOOLPPWD;
+	path = get_path(args[0]);
 	if (ft_strlen(path) >= PATH_MAX)
-		err = ENAMETOOLONG;
-	if (err == 0)
-		err = change_dir(path);
-	if (err)
-		show_error_msg(path, err);
+		g_errno = ENAMETOOLONG;
+	if (g_errno == 0)
+		change_dir(path);
+	if (g_errno)
+		show_error_msg(path);
 	free(path);
-	return (err);
+	return (g_errno);
 }
