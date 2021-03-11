@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_document.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 19:47:04 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/11 17:53:32 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	read_buffer(char **buffer, char *delimiter, t_bool remove_tabs)
 	char	*line;
 	int		ret;
 
-	*buffer = ft_strdup("");
 	while (1)
 	{
 		if ((ret = readline_21sh(&line, PS2)) == ERROR)
@@ -51,7 +50,10 @@ static int	read_buffer(char **buffer, char *delimiter, t_bool remove_tabs)
 		if (remove_tabs)
 			line = remove_leading_tabs(line);
 		if (ft_strequ(line, delimiter))
+		{
+			free(line);
 			break ;
+		}
 		*buffer = ft_strjoin_free(*buffer, line, 1, 1);
 		*buffer = ft_strjoin_free(*buffer, "\n", 1, 0);
 	}
@@ -71,9 +73,11 @@ int		here_document(int fd, char *delimeter, t_bool remove_tabs)
 		ft_perror(NULL, NULL, FALSE);
 		return (-1);
 	}
+	*buffer = ft_strdup("");
 	if (read_buffer(&buffer, delimeter, remove_tabs) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	ft_printf(pipe_fd[1], buffer);
+	free(buffer);
 	close(pipe_fd[1]);
 	if (dup2(pipe_fd[0], fd) == -1)
 	{
