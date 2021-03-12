@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_document.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/11 18:29:41 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/12 08:39:02 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,25 @@ static int	read_buffer(char **buffer, char *delimiter, t_bool remove_tabs)
 	return (EXIT_SUCCESS);
 }
 
+static int	get_fd(int fd)
+{
+	int		tty_fd;
+
+	if (fd == -1)
+	{
+		fd = STDIN_FILENO;
+		tty_fd = open("/dev/tty", O_RDONLY);
+		dup2(tty_fd, STDIN_FILENO);
+	}
+	return (fd);
+}
+
 int			here_document(int fd, char *delimeter, t_bool remove_tabs)
 {
 	char	*buffer;
 	int		pipe_fd[2];
 
-	if (fd == -1)
-		fd = STDIN_FILENO;
+	fd = get_fd(fd);
 	if (pipe(pipe_fd) == -1)
 	{
 		g_errno = EUNK;
