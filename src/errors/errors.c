@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:01:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/25 11:31:28 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 11:08:46 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_perror(char *prefix, char *suffix, t_bool exit_on_error)
 	ft_printf(2, "%s", g_error_message_string[g_errno]);
 	if (suffix != NULL)
 		ft_printf(2, " %s", suffix);
-	ft_printf(1, "\n");
+	ft_printf(2, "\n");
 	if (g_errno > 0 && exit_on_error == TRUE)
 		exit(g_errno);
 }
