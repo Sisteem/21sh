@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/12 17:49:18 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 11:42:12 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ static int	is_redirection(t_token_type type)
 static int	handle_redirections(int io_number, t_token_type tk_type,
 	void *word, t_vector *here_docs)
 {
-	int err;
-	int	i;
+	int			err;
+	static int	here_docs_vector_index;
 
-	i = 0;
 	err = EXIT_SUCCESS;
 	if (check_ambiguous_redirect(word) == -1)
 		return (-1);
@@ -60,7 +59,7 @@ static int	handle_redirections(int io_number, t_token_type tk_type,
 	else if (tk_type == LESS)
 		err = redirect_input(word, io_number);
 	else if (tk_type == DLESS || tk_type == DLESSDASH)
-		err = here_document(here_docs, i++);
+		err = here_document(here_docs, here_docs_vector_index++);
 	if (err == -1)
 		ft_perror(g_errno != EREDIRECTION ? word : NULL, NULL, FALSE);
 	return (err);
