@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_document.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:21:48 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/13 11:02:42 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 16:04:51 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ int				prepare_commands_here_docs(t_vector *commands)
 	while (i < commands->length)
 	{
 		cmd = (t_command*)commands->array[i]->content;
-		if (cmd->type == PIPE_SEQ)
-			continue ;
-		if (prepare_cmd_here_docs(cmd) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		if (cmd->type == SIMPLE_CMD)
+		{
+			if (prepare_cmd_here_docs(cmd) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
 		++i;
 	}
 	return (EXIT_SUCCESS);
