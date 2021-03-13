@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:33:47 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/12 10:40:37 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 15:22:58 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 
 void	expansion(t_vector *commands);
 char	*expand_word(char *word, t_bool is_here_doc);
+char	*expand_here_doc_buffer(char *buffer);
 
 #endif

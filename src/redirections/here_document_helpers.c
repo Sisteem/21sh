@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_document_helpers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/13 10:53:32 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 15:23:16 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int			create_buffer_pipe(
 	buffer = ft_strdup("");
 	if (read_buffer(&buffer, delim->str, remove_tabs) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (delim->is_quoted)
-		buffer = expand_word(buffer, TRUE);
+	if (!delim->is_quoted)
+		buffer = expand_here_doc_buffer(buffer);
 	ft_printf(pipe_fds[1], buffer);
 	free(buffer);
 	close(pipe_fds[1]);

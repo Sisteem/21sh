@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:33:44 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/12 10:42:08 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 15:22:49 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ static void	expand_command(t_vector *tokens)
 		old_token_type = current_token_type;
 		++i;
 	}
+}
+
+char		*expand_here_doc_buffer(char *buffer)
+{
+	char	*res;
+
+	res = expand_word(buffer, TRUE);
+	free(buffer);
+	buffer = remove_quotes_from_word(res);
+	free(res);
+	return (buffer);
 }
 
 void		expansion(t_vector *commands)
