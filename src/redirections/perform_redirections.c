@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perform_redirections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:18:11 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/10 17:00:10 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/12 17:49:18 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ static int	is_redirection(t_token_type type)
 		type == GREATAND);
 }
 
-static int	handle_redirections(int io_number, t_token_type tk_type, void *word)
+static int	handle_redirections(int io_number, t_token_type tk_type,
+	void *word, t_vector *here_docs)
 {
 	int err;
+	int	i;
 
+	i = 0;
 	err = EXIT_SUCCESS;
 	if (check_ambiguous_redirect(word) == -1)
 		return (-1);
@@ -57,13 +60,13 @@ static int	handle_redirections(int io_number, t_token_type tk_type, void *word)
 	else if (tk_type == LESS)
 		err = redirect_input(word, io_number);
 	else if (tk_type == DLESS || tk_type == DLESSDASH)
-		err = here_document(io_number, word, tk_type == DLESSDASH);
+		err = here_document(here_docs, i++);
 	if (err == -1)
 		ft_perror(g_errno != EREDIRECTION ? word : NULL, NULL, FALSE);
 	return (err);
 }
 
-int			perform_redirections(t_vector *tokens)
+int			perform_redirections(t_command *cmd)
 {
 	t_token	*tk;
 	t_token	*tmp_tk;
@@ -72,21 +75,22 @@ int			perform_redirections(t_vector *tokens)
 
 	i = 0;
 	io_number = -1;
-	while (i < tokens->length)
+	while (i < cmd->tokens->length)
 	{
-		tk = (t_token*)tokens->array[i]->content;
+		tk = (t_token*)cmd->tokens->array[i]->content;
 		if (tk->type == IO_NUMBER)
 			io_number = *(int*)tk->data;
 		else if (is_redirection(tk->type))
 		{
-			tmp_tk = (t_token*)tokens->array[i + 1]->content;
-			if (handle_redirections(io_number, tk->type, tmp_tk->data) == -1)
+			tmp_tk = (t_token*)cmd->tokens->array[i + 1]->content;
+			if (handle_redirections(io_number, tk->type, tmp_tk->data,
+				cmd->here_docs) == -1)
 				return (-1);
 		}
 		else if (tk->type == GREATANDDASH || tk->type == LESSANDDASH)
 			close_fd(io_number, tk->type == GREATANDDASH ? REDI_OUT : REDI_IN);
 		++i;
 	}
-	remove_redirections_tokens(tokens);
+	remove_redirections_tokens(cmd->tokens);
 	return (EXIT_SUCCESS);
 }

@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   expand_word.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:34:03 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/13 11:38:04 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/12 10:41:37 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-static int	check_quote(char c, char *quote, size_t *end)
+static int	check_quote(char c, char *quote, size_t *end, t_bool is_here_doc)
 {
 	char q;
 
 	q = quote_type(c);
+	if (is_here_doc)
+	{
+		if (q == BACK_SLASH)
+			*end += 2;
+		return (q == BACK_SLASH);
+	}
 	if (q == BACK_SLASH && (*quote == 0 || *quote == DOUBLE_QUOTE))
 		*end += 2;
 	else if (*quote == 0 && quote_type(c) != 0)
@@ -34,7 +40,7 @@ static int	check_quote(char c, char *quote, size_t *end)
 	return (1);
 }
 
-char		*expand_word(char *word)
+char		*expand_word(char *word, t_bool is_here_doc)
 {
 	char	*result;
 	size_t	end;
@@ -47,7 +53,7 @@ char		*expand_word(char *word)
 	quote = 0;
 	while (word[end])
 	{
-		if (check_quote(word[end], &quote, &end))
+		if (check_quote(word[end], &quote, &end, is_here_doc))
 			continue ;
 		if (is_tilde(word, end))
 			result = expand_tilde(word, result, &end, &start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:33:44 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/08 11:12:49 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/12 10:42:08 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	expand_command(t_vector *tokens)
 		if (current_token_type == WORD &&
 			old_token_type != DLESS && old_token_type != DLESSDASH)
 		{
-			word = expand_word(tk->data);
+			word = expand_word(tk->data, FALSE);
 			free(tk->data);
 			tk->data = ft_strtrim(word);
 			free(word);

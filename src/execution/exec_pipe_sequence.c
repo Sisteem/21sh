@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_sequence.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/10 14:55:47 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 10:56:13 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ static int	exec_pipe_command(
 			ft_perror(NULL, NULL, TRUE);
 		}
 	close_fds(fds, fds_count);
-	exit_status = exec_simple_command(cmd->tokens, FALSE);
+	exit_status = exec_simple_command(cmd, FALSE);
 	exit(exit_status);
 }
 
-int			exec_pipe_sequence(t_vector *tokens)
+int			exec_pipe_sequence(t_command *cmd)
 {
 	t_vector		commands;
 	int				**fds;
@@ -90,7 +90,9 @@ int			exec_pipe_sequence(t_vector *tokens)
 	size_t			fds_count;
 	size_t			i;
 
-	split_pipe_sequence_commands(tokens, &commands);
+	split_pipe_sequence_commands(cmd->tokens, &commands);
+	if (prepare_commands_here_docs(&commands) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	fds_count = commands.length - 1;
 	fds = create_fds(fds_count);
 	i = 0;

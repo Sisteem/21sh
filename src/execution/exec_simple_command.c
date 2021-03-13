@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/02 21:12:08 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 11:00:59 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ int				run_executable(char **args, t_bool run_in_child)
 	return (exit_status);
 }
 
-int				exec_simple_command(t_vector *tokens, t_bool run_in_child)
+int				exec_simple_command(t_command *cmd, t_bool run_in_child)
 {
 	char	**args;
 	int		exit_status;
 
-	remove_quotes(tokens);
-	if (perform_redirections(tokens) == -1)
+	remove_quotes(cmd->tokens);
+	if (perform_redirections(cmd) == -1)
 		return (g_errno);
-	if (tokens->length == 0)
+	if (cmd->tokens->length == 0)
 		return (EXIT_SUCCESS);
-	args = tokens_to_strings_array(tokens);
+	args = tokens_to_strings_array(cmd->tokens);
 	if (is_built_in(args[0]))
 		exit_status = run_built_in(args, ft_strings_array_length(args + 1));
 	else

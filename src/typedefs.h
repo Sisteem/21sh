@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedefs.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:11:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/10 15:52:24 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/12 17:37:55 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_token
 typedef struct	s_command
 {
 	t_vector		*tokens;
+	t_vector		*here_docs;
 	t_command_type	type;
 }				t_command;
 
@@ -73,5 +74,11 @@ typedef struct	s_env_var
 	char	*key;
 	char	*value;
 }				t_env_var;
+
+typedef struct	s_here_doc
+{
+	int		pipe_fd;
+	int		fd;
+}				t_here_doc;
 
 #endif

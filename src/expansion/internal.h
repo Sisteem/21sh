@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   internal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:35:16 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/13 19:54:11 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/12 09:17:10 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "twenty_one.h"
 
-char	*expand_word(char *word);
 int		is_tilde(char *word, size_t i);
 int		is_env_var(char *word, size_t i);
 char	*expand_tilde(char *word, char *result, size_t *end, size_t *start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 10:11:12 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/02/27 17:40:21 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/13 11:07:04 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int			exec_commands(t_vector *commands)
 	size_t		i;
 	int			ret_value;
 
+	if (prepare_commands_here_docs(commands) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	i = 0;
 	while (i < commands->length)
 	{
@@ -69,9 +71,9 @@ int			exec_commands(t_vector *commands)
 			return (EUNK);
 		cmd = (t_command*)commands->array[i]->content;
 		if (cmd->type == SIMPLE_CMD)
-			ret_value = exec_simple_command(cmd->tokens, TRUE);
+			ret_value = exec_simple_command(cmd, TRUE);
 		else
-			ret_value = exec_pipe_sequence(cmd->tokens);
+			ret_value = exec_pipe_sequence(cmd);
 		++i;
 		if (restore_standard_fds() == -1)
 			return (EUNK);

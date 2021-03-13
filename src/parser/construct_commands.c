@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   construct_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 21:47:26 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/04 12:07:11 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/12 18:28:10 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	add_command(t_vector *tokens, t_construct_commands *c)
 	t_command	cmd;
 
 	cmd.type = c->cmd_type;
+	cmd.here_docs = ft_vector_new();
 	cmd.tokens = ft_vector_new_capacity(c->i - c->j);
 	while (c->j < c->i)
 	{

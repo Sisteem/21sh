@@ -6,7 +6,7 @@
 #    By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/11 14:24:13 by ylagtab          ###   ########.fr        #
+#    Updated: 2021/03/12 17:46:44 by ylagtab          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ CC = gcc
 	redirections/perform_redirections.o redirections/redirect_output.o \
 	redirections/redirect_input.o redirections/remove_redirections_tokens.o \
 	redirections/fd_aggregation.o redirections/here_document.o \
-	redirections/close_fd.o \
+	redirections/close_fd.o redirections/here_document_helpers.o\
 	built_in/cd.o built_in/cd_utils.o built_in/env.o built_in/env_tools.o \
 	built_in/env_ops.o built_in/run_built_in.o built_in/echo.o built_in/exit.o \
 	built_in/is_built_in.o

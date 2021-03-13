@@ -5,96 +5,87 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/20 17:44:40 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/12 08:39:02 by ylagtab          ###   ########.fr       */
+/*   Created: 2021/03/12 17:21:48 by ylagtab           #+#    #+#             */
+/*   Updated: 2021/03/13 11:02:42 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-static char	*remove_leading_tabs(char *str)
+static t_bool	is_quoted(char *str)
 {
-	char	*result;
-	size_t	i;
-
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] != '\t')
-			break ;
-		++i;
+		if (quote_type(*str) > 0)
+			return (TRUE);
+		++str;
 	}
-	result = ft_strdup(str + i);
-	free(str);
-	return (result);
+	return (FALSE);
 }
 
-static int	read_buffer(char **buffer, char *delimiter, t_bool remove_tabs)
+t_delimiter		*get_delimiter(t_token *tk)
 {
-	char	*line;
-	int		ret;
+	t_delimiter	*delim;
 
-	while (1)
+	delim = (t_delimiter*)ft_malloc(sizeof(t_delimiter));
+	delim->str = tk->data;
+	delim->is_quoted = is_quoted(delim->str);
+	delim->str = remove_quotes_from_word(delim->str);
+	return (delim);
+}
+
+int				prepare_cmd_here_docs(t_command *cmd)
+{
+	t_token		*tk;
+	t_delimiter	*delim;
+	size_t		i;
+	int			fd;
+	int			err;
+
+	i = 0;
+	while (i < cmd->tokens->length)
 	{
-		if ((ret = readline_21sh(&line, PS2)) == ERROR)
-			exit(1);
-		if (ret == EXIT)
-			break ;
-		if (ret == INTERRUPTED)
+		tk = (t_token*)cmd->tokens->array[i]->content;
+		if (tk->type == DLESSDASH || tk->type == DLESS)
 		{
-			free(*buffer);
-			return (EXIT_FAILURE);
+			fd = get_redirect_fd(cmd->tokens, i);
+			delim = get_delimiter(cmd->tokens->array[i + 1]->content);
+			err = create_buffer_pipe(cmd, fd, delim, tk->type == DLESSDASH);
+			free_delimiter(delim);
+			if (err == EXIT_FAILURE)
+				return (EXIT_FAILURE);
 		}
-		if (remove_tabs)
-			line = remove_leading_tabs(line);
-		if (ft_strequ(line, delimiter))
-		{
-			free(line);
-			break ;
-		}
-		*buffer = ft_strjoin_free(*buffer, line, 1, 1);
-		*buffer = ft_strjoin_free(*buffer, "\n", 1, 0);
+		++i;
 	}
 	return (EXIT_SUCCESS);
 }
 
-static int	get_fd(int fd)
+int				prepare_commands_here_docs(t_vector *commands)
 {
-	int		tty_fd;
+	t_command	*cmd;
+	size_t		i;
 
-	if (fd == -1)
+	i = 0;
+	while (i < commands->length)
 	{
-		fd = STDIN_FILENO;
-		tty_fd = open("/dev/tty", O_RDONLY);
-		dup2(tty_fd, STDIN_FILENO);
+		cmd = (t_command*)commands->array[i]->content;
+		if (cmd->type == PIPE_SEQ)
+			continue ;
+		if (prepare_cmd_here_docs(cmd) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		++i;
 	}
-	return (fd);
+	return (EXIT_SUCCESS);
 }
 
-int			here_document(int fd, char *delimeter, t_bool remove_tabs)
+int				here_document(t_vector *here_docs, int index)
 {
-	char	*buffer;
-	int		pipe_fd[2];
+	t_here_doc	*hd;
 
-	fd = get_fd(fd);
-	if (pipe(pipe_fd) == -1)
-	{
-		g_errno = EUNK;
-		ft_perror(NULL, NULL, FALSE);
-		return (-1);
-	}
-	buffer = ft_strdup("");
-	if (read_buffer(&buffer, delimeter, remove_tabs) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	ft_printf(pipe_fd[1], buffer);
-	free(buffer);
-	close(pipe_fd[1]);
-	if (dup2(pipe_fd[0], fd) == -1)
+	hd = (t_here_doc*)here_docs->array[index]->content;
+	if (dup2(hd->pipe_fd, hd->fd) == -1)
 	{
 		g_errno = EREDIRECTION;
-		ft_perror(NULL, NULL, FALSE);
 		return (-1);
 	}
 	return (EXIT_SUCCESS);
