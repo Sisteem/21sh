@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:47:37 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/10 10:15:42 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/14 08:45:20 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int			main(int ac, char *av[], char *envp[])
 
 	exit_value = 1;
 	signal(SIGINT, &handler);
+	signal(SIGTSTP, SIG_IGN);
 	g_shell_env = env_init(envp);
 	if (ac == 3 && ft_strcmp(av[1], "-c") == 0)
 		exit_value = shell_main(av[2]);
