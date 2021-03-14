@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   twenty_one.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 09:51:09 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/05 19:12:29 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/14 11:03:03 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int		read_command_line(char **cmd);
 void	del_command(void *content, size_t content_size);
 void	del_token(void *content, size_t content_size);
 void	del_command_without_tokens(void *content, size_t content_size);
+pid_t	fork_process(void);
 
 #endif

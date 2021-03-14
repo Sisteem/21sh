@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_simple_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/13 11:00:59 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/14 11:03:49 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				run_executable(char **args, t_bool run_in_child)
 	if (exe_path == NULL)
 		return (-1);
 	envp = shell_env_to_envp(g_shell_env);
-	if (run_in_child == FALSE || fork() == 0)
+	if (run_in_child == FALSE || fork_process() == 0)
 	{
 		execve(exe_path, args, envp);
 		return (EUNK);

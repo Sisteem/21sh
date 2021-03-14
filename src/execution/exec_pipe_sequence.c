@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_sequence.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/13 10:56:13 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/14 11:03:45 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			exec_pipe_sequence(t_command *cmd)
 	i = 0;
 	while (i < commands.length)
 	{
-		if (fork() == 0)
+		if (fork_process() == 0)
 			exec_pipe_command(commands.array[i]->content, i, fds, fds_count);
 		++i;
 	}
