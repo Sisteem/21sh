@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 17:03:24 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/12 11:32:34 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/14 10:58:05 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		fill_str(char **word, t_remove_quotes *rq)
 	++(*word);
 }
 
-char	*remove_quotes_from_word(char *word)
+char		*remove_quotes_from_word(char *word)
 {
 	t_remove_quotes rq;
 
