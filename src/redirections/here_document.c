@@ -6,7 +6,7 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:21:48 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/13 16:04:51 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/14 10:24:16 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,15 @@ int				prepare_commands_here_docs(t_vector *commands)
 	return (EXIT_SUCCESS);
 }
 
-int				here_document(t_vector *here_docs, int index)
+int				here_document(t_vector *here_docs, size_t *index)
 {
 	t_here_doc	*hd;
 
-	hd = (t_here_doc*)here_docs->array[index]->content;
+	hd = (t_here_doc*)here_docs->array[*index]->content;
+	if (*index == here_docs->length - 1)
+		*index = 0;
+	else
+		++(*index);
 	if (dup2(hd->pipe_fd, hd->fd) == -1)
 	{
 		g_errno = EREDIRECTION;
