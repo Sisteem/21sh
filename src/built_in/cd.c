@@ -6,7 +6,7 @@
 /*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:24:35 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/11 16:48:47 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/14 08:33:16 by ylagtab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ static void			show_error_msg(char *path)
 {
 	char *error_prefix;
 
-	error_prefix = "cd";
+	error_prefix = ft_strdup("cd");
 	if (g_errno != ENOHOME && g_errno != ENOOLPPWD)
 	{
-		error_prefix = ft_strjoin(error_prefix, ": ");
+		error_prefix = ft_strjoin_free(error_prefix, ": ", 1, 0);
 		error_prefix = ft_strjoin_free(error_prefix, path, 1, 0);
 	}
 	ft_perror(error_prefix, NULL, FALSE);
+	free(error_prefix);
 }
 
 static void			handle_errors(char *path)
