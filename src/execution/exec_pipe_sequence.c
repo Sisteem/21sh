@@ -6,7 +6,7 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/14 11:03:45 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/14 18:08:37 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int			exec_pipe_sequence(t_command *cmd)
 			exec_pipe_command(commands.array[i]->content, i, fds, fds_count);
 		++i;
 	}
-	close_fds(fds, fds_count);
+	// close_fds(fds, fds_count);
 	while (wait(&exit_status) != -1)
 		;
 	free_fds_array(fds, fds_count);

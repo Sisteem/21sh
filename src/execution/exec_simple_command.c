@@ -6,7 +6,7 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:12:34 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/14 11:03:49 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/14 18:01:54 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				exec_simple_command(t_command *cmd, t_bool run_in_child)
 
 	remove_quotes(cmd->tokens);
 	if (perform_redirections(cmd) == -1)
-		return (g_errno);
+		return (EXIT_FAILURE);
 	if (cmd->tokens->length == 0)
 		return (EXIT_SUCCESS);
 	args = tokens_to_strings_array(cmd->tokens);

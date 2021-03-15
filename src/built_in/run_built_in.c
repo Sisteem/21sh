@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_built_in.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 09:30:38 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/02/24 18:50:57 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/14 18:33:49 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		run_built_in(char **args, size_t args_len)
 {
 	if (ft_strcmp(args[0], "env") == 0)
-		return (env(args + 1, args_len));
+		return (env(args + 1));
 	else if (ft_strcmp(args[0], "setenv") == 0)
 		return (env_set(args + 1, args_len));
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
