@@ -6,7 +6,7 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 00:27:21 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/15 08:33:42 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:32:22 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int			cd(char **args, size_t args_len);
 int			pwd(size_t args_len);
 int			echo(char **args);
 int			env(char **args);
-void		set_env_var(char *name, char *value);
-t_vector	*env_dup(t_vector *env);
-t_vector	*del_env_var(t_vector *env);
 int			env_set(char **args, size_t args_len);
 int			env_unset(char **args, size_t args_len);
 t_vector	*env_init(char **envp);

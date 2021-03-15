@@ -6,7 +6,7 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/30 03:05:41 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/14 18:50:14 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:34:01 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,4 @@ char			**shell_env_to_envp(t_vector *shell_env)
 	}
 	envp[i] = NULL;
 	return (envp);
-}
-
-t_vector	*env_dup(t_vector *env)
-{
-	t_vector	*tmp_env;
-	char		**envp;
-
-	envp = shell_env_to_envp(env);
-	tmp_env = env_init(envp);
-	ft_free_strings_array(envp);
-	return (tmp_env);
-}
-
-t_vector	*del_env_var(t_vector *env)
-{
-	t_vector	*tmp_env;
-	char		**envp;
-
-	envp = shell_env_to_envp(env);
-	tmp_env = env_init(envp);
-	ft_free_strings_array(envp);
-	return (tmp_env);
 }

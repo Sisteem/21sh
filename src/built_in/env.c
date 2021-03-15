@@ -6,11 +6,11 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:58:23 by vanderwolk        #+#    #+#             */
-/*   Updated: 2021/03/15 08:35:25 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:35:27 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "twenty_one.h"
+#include "internal.h"
 
 static int	is_valid_name(char *name)
 {
@@ -63,20 +63,6 @@ int			env_unset(char **args, size_t args_len)
 	return (0);
 }
 
-void		print_all_env_vars(void)
-{
-	t_env_var	var;
-	size_t		i;
-
-	i = 0;
-	while (i < g_shell_env->length)
-	{
-		var = *(t_env_var *)(g_shell_env->array[i]->content);
-		ft_printf(1, "%s=%s\n", var.key, var.value);
-		i++;
-	}
-}
-
 int			env(char **args)
 {
 	t_vector	*tmp_shell_env;
@@ -90,18 +76,14 @@ int			env(char **args)
 		if (args[i][0] == '=')
 		{
 			ft_printf(2, "21sh: env: value is required\n");
-			ft_vector_free(tmp_shell_env, TRUE, free_env_var);
+			reset_env(tmp_shell_env);
 			return (EXIT_FAILURE);
 		}
 		*equal_sign = '\0';
 		set_env_var(args[i], equal_sign + 1);
 		i++;
 	}
-	if (args[i])
-		run_executable(args + i, TRUE);
-	else
-		print_all_env_vars();
-	ft_vector_free(g_shell_env, TRUE, free_env_var);
-	g_shell_env = tmp_shell_env;
+	run_env(args, i);
+	reset_env(tmp_shell_env);
 	return (EXIT_SUCCESS);
 }
