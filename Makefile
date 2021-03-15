@@ -6,7 +6,7 @@
 #    By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/08 10:36:53 by ylagtab           #+#    #+#              #
-#    Updated: 2021/03/15 08:34:22 by mel-idri         ###   ########.fr        #
+#    Updated: 2021/03/15 16:14:28 by mel-idri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ CC = gcc
 	expansion/env_var_expansion.o expansion/tokens_to_fileds.o \
 	execution/exec_simple_command.o execution/exec_commands.o \
 	execution/exec_pipe_sequence.o execution/get_executable_pathname.o \
-	execution/split_pipe_sequence_commands.o \
+	execution/split_pipe_sequence_commands.o execution/fork_and_exec.o \
 	errors/errors.o \
 	redirections/perform_redirections.o redirections/redirect_output.o \
 	redirections/redirect_input.o redirections/remove_redirections_tokens.o \

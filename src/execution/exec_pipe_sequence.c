@@ -6,31 +6,11 @@
 /*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 09:27:29 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/14 18:08:37 by mel-idri         ###   ########.fr       */
+/*   Updated: 2021/03/15 16:15:32 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-
-static int	**create_fds(size_t count)
-{
-	int		**fds;
-	size_t	i;
-
-	i = 0;
-	fds = (int**)ft_malloc(count * sizeof(int*));
-	while (i < count)
-	{
-		fds[i] = (int*)ft_malloc(2 * sizeof(int));
-		if (pipe(fds[i]) == -1)
-		{
-			g_errno = EUNK;
-			ft_perror(NULL, NULL, FALSE);
-		}
-		++i;
-	}
-	return (fds);
-}
 
 static void	close_fds(int **fds, size_t count)
 {
@@ -60,7 +40,29 @@ static void	free_fds_array(int **fds, size_t count)
 	free(fds);
 }
 
-static int	exec_pipe_command(
+static int	**create_fds(size_t count)
+{
+	int		**fds;
+	size_t	i;
+
+	i = 0;
+	fds = (int**)ft_malloc(count * sizeof(int*));
+	while (i < count)
+	{
+		fds[i] = (int*)ft_malloc(2 * sizeof(int));
+		if (pipe(fds[i]) == -1)
+		{
+			g_errno = ETOOMANYPIPES;
+			ft_perror(NULL, NULL, FALSE);
+			free_fds_array(fds, i + 1);
+			return (NULL);
+		}
+		++i;
+	}
+	return (fds);
+}
+
+int			exec_pipe_command(
 	t_command *cmd, size_t index, int **fds, size_t fds_count)
 {
 	int exit_status;
@@ -88,21 +90,19 @@ int			exec_pipe_sequence(t_command *cmd)
 	int				**fds;
 	int				exit_status;
 	size_t			fds_count;
-	size_t			i;
 
 	split_pipe_sequence_commands(cmd->tokens, &commands);
 	if (prepare_commands_here_docs(&commands) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	fds_count = commands.length - 1;
-	fds = create_fds(fds_count);
-	i = 0;
-	while (i < commands.length)
+	fds = create_fds(commands.length - 1);
+	if (fds == NULL)
 	{
-		if (fork_process() == 0)
-			exec_pipe_command(commands.array[i]->content, i, fds, fds_count);
-		++i;
+		ft_vector_free(&commands, FALSE, del_command_without_tokens);
+		return (EXIT_FAILURE);
 	}
-	// close_fds(fds, fds_count);
+	fork_and_exec(&commands, fds, fds_count);
+	close_fds(fds, fds_count);
 	while (wait(&exit_status) != -1)
 		;
 	free_fds_array(fds, fds_count);

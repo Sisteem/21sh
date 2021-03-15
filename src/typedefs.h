@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedefs.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:11:22 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/12 17:37:55 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/15 15:50:59 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef enum	e_error
 	EREDIRECTION,
 	EAMBIGREDIRECT,
 	ESYNTAX,
+	ETOOMANYPIPES,
 	EUNK
 }				t_error;
 

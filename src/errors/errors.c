@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagtab <ylagtab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: mel-idri <mel-idri@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:01:19 by ylagtab           #+#    #+#             */
-/*   Updated: 2021/03/13 11:08:46 by ylagtab          ###   ########.fr       */
+/*   Updated: 2021/03/15 15:51:14 by mel-idri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ const char	*g_error_message_string[] = {
 	"is a directory",
 	"Redirection error",
 	"ambiguous redirect",
-	"syntax error near unexpected token"
+	"syntax error near unexpected token",\
+	"Too many pipes",
 	"An error has occured"
 };
 
